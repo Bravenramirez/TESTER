@@ -38,7 +38,7 @@ public class DefaultSettings
 
     public DefaultSettings()
     {
-        // Initialize each strategy with basic default settings, to be randomized later in optimization
+        // Initialize each strategy with extremely loose settings
         AboveEmaLong1 = new Strategy
         {
             CciIndicator1 = "CCI_50",
@@ -46,16 +46,16 @@ public class DefaultSettings
             MacdIndicator1 = "MACD_12_26",
             MacdIndicator2 = "MACD_9_18",
             AtrIndicator = "ATR_14",
-            Cci1Threshold = 100,
-            Cci2Threshold = 100,
-            Macd1Threshold = 0,
-            Macd2Threshold = 0,
+            Cci1Threshold = -1000, // Very loose
+            Cci2Threshold = -1000, // Very loose
+            Macd1Threshold = -5,   // Very loose
+            Macd2Threshold = -5,   // Very loose
             Cci1Operator = ">",
             Cci2Operator = ">",
             Macd1Operator = ">",
             Macd2Operator = ">",
-            TrailStopMultiplier = 2.0,
-            ProfitTargetMultiplier = 3.0
+            TrailStopMultiplier = 0.1, // Very tight stop
+            ProfitTargetMultiplier = 0.1 // Very tight target
         };
 
         AboveEmaLong2 = new Strategy
@@ -65,16 +65,16 @@ public class DefaultSettings
             MacdIndicator1 = "MACD_12_26",
             MacdIndicator2 = "MACD_9_18",
             AtrIndicator = "ATR_14",
-            Cci1Threshold = 100,
-            Cci2Threshold = 100,
-            Macd1Threshold = 0,
-            Macd2Threshold = 0,
+            Cci1Threshold = -1000, // Very loose
+            Cci2Threshold = -1000, // Very loose
+            Macd1Threshold = -5,   // Very loose
+            Macd2Threshold = -5,   // Very loose
             Cci1Operator = ">",
             Cci2Operator = ">",
             Macd1Operator = ">",
             Macd2Operator = ">",
-            TrailStopMultiplier = 2.0,
-            ProfitTargetMultiplier = 3.0
+            TrailStopMultiplier = 0.1, // Very tight stop
+            ProfitTargetMultiplier = 0.1 // Very tight target
         };
 
         AboveEmaShort1 = new Strategy
@@ -84,16 +84,16 @@ public class DefaultSettings
             MacdIndicator1 = "MACD_12_26",
             MacdIndicator2 = "MACD_9_18",
             AtrIndicator = "ATR_14",
-            Cci1Threshold = -100,
-            Cci2Threshold = -100,
-            Macd1Threshold = 0,
-            Macd2Threshold = 0,
+            Cci1Threshold = 1000, // Very loose
+            Cci2Threshold = 1000, // Very loose
+            Macd1Threshold = 5,   // Very loose
+            Macd2Threshold = 5,   // Very loose
             Cci1Operator = "<",
             Cci2Operator = "<",
             Macd1Operator = "<",
             Macd2Operator = "<",
-            TrailStopMultiplier = 2.0,
-            ProfitTargetMultiplier = 3.0
+            TrailStopMultiplier = 0.1, // Very tight stop
+            ProfitTargetMultiplier = 0.1 // Very tight target
         };
 
         AboveEmaShort2 = new Strategy
@@ -103,16 +103,16 @@ public class DefaultSettings
             MacdIndicator1 = "MACD_12_26",
             MacdIndicator2 = "MACD_9_18",
             AtrIndicator = "ATR_14",
-            Cci1Threshold = -100,
-            Cci2Threshold = -100,
-            Macd1Threshold = 0,
-            Macd2Threshold = 0,
+            Cci1Threshold = 1000, // Very loose
+            Cci2Threshold = 1000, // Very loose
+            Macd1Threshold = 5,   // Very loose
+            Macd2Threshold = 5,   // Very loose
             Cci1Operator = "<",
             Cci2Operator = "<",
             Macd1Operator = "<",
             Macd2Operator = "<",
-            TrailStopMultiplier = 2.0,
-            ProfitTargetMultiplier = 3.0
+            TrailStopMultiplier = 0.1, // Very tight stop
+            ProfitTargetMultiplier = 0.1 // Very tight target
         };
 
         BelowEmaLong1 = new Strategy
@@ -122,16 +122,16 @@ public class DefaultSettings
             MacdIndicator1 = "MACD_12_26",
             MacdIndicator2 = "MACD_9_18",
             AtrIndicator = "ATR_14",
-            Cci1Threshold = 100,
-            Cci2Threshold = 100,
-            Macd1Threshold = 0,
-            Macd2Threshold = 0,
+            Cci1Threshold = -1000, // Very loose
+            Cci2Threshold = -1000, // Very loose
+            Macd1Threshold = -5,   // Very loose
+            Macd2Threshold = -5,   // Very loose
             Cci1Operator = ">",
             Cci2Operator = ">",
             Macd1Operator = ">",
             Macd2Operator = ">",
-            TrailStopMultiplier = 2.0,
-            ProfitTargetMultiplier = 3.0
+            TrailStopMultiplier = 0.1, // Very tight stop
+            ProfitTargetMultiplier = 0.1 // Very tight target
         };
 
         BelowEmaLong2 = new Strategy
@@ -141,16 +141,16 @@ public class DefaultSettings
             MacdIndicator1 = "MACD_12_26",
             MacdIndicator2 = "MACD_9_18",
             AtrIndicator = "ATR_14",
-            Cci1Threshold = 100,
-            Cci2Threshold = 100,
-            Macd1Threshold = 0,
-            Macd2Threshold = 0,
+            Cci1Threshold = -1000, // Very loose
+            Cci2Threshold = -1000, // Very loose
+            Macd1Threshold = -5,   // Very loose
+            Macd2Threshold = -5,   // Very loose
             Cci1Operator = ">",
             Cci2Operator = ">",
             Macd1Operator = ">",
             Macd2Operator = ">",
-            TrailStopMultiplier = 2.0,
-            ProfitTargetMultiplier = 3.0
+            TrailStopMultiplier = 0.1, // Very tight stop
+            ProfitTargetMultiplier = 0.1 // Very tight target
         };
 
         BelowEmaShort1 = new Strategy
@@ -160,16 +160,16 @@ public class DefaultSettings
             MacdIndicator1 = "MACD_12_26",
             MacdIndicator2 = "MACD_9_18",
             AtrIndicator = "ATR_14",
-            Cci1Threshold = -100,
-            Cci2Threshold = -100,
-            Macd1Threshold = 0,
-            Macd2Threshold = 0,
+            Cci1Threshold = 1000, // Very loose
+            Cci2Threshold = 1000, // Very loose
+            Macd1Threshold = 5,   // Very loose
+            Macd2Threshold = 5,   // Very loose
             Cci1Operator = "<",
             Cci2Operator = "<",
             Macd1Operator = "<",
             Macd2Operator = "<",
-            TrailStopMultiplier = 2.0,
-            ProfitTargetMultiplier = 3.0
+            TrailStopMultiplier = 0.1, // Very tight stop
+            ProfitTargetMultiplier = 0.1 // Very tight target
         };
 
         BelowEmaShort2 = new Strategy
@@ -179,22 +179,46 @@ public class DefaultSettings
             MacdIndicator1 = "MACD_12_26",
             MacdIndicator2 = "MACD_9_18",
             AtrIndicator = "ATR_14",
-            Cci1Threshold = -100,
-            Cci2Threshold = -100,
-            Macd1Threshold = 0,
-            Macd2Threshold = 0,
+            Cci1Threshold = 1000, // Very loose
+            Cci2Threshold = 1000, // Very loose
+            Macd1Threshold = 5,   // Very loose
+            Macd2Threshold = 5,   // Very loose
             Cci1Operator = "<",
             Cci2Operator = "<",
             Macd1Operator = "<",
             Macd2Operator = "<",
-            TrailStopMultiplier = 2.0,
-            ProfitTargetMultiplier = 3.0
+            TrailStopMultiplier = 0.1, // Very tight stop
+            ProfitTargetMultiplier = 0.1 // Very tight target
         };
     }
 }
-
 public class SimpleDailyBacktest
 {
+    private static void PrintStrategySummary(DefaultSettings settings)
+    {
+        void PrintStrategyDetails(string name, Strategy strategy)
+        {
+            Console.WriteLine($"{name}:");
+            Console.WriteLine($"  CCI Indicator 1: {strategy.CciIndicator1}, Threshold: {strategy.Cci1Threshold}, Operator: {strategy.Cci1Operator}");
+            Console.WriteLine($"  CCI Indicator 2: {strategy.CciIndicator2}, Threshold: {strategy.Cci2Threshold}, Operator: {strategy.Cci2Operator}");
+            Console.WriteLine($"  MACD Indicator 1: {strategy.MacdIndicator1}, Threshold: {strategy.Macd1Threshold}, Operator: {strategy.Macd1Operator}");
+            Console.WriteLine($"  MACD Indicator 2: {strategy.MacdIndicator2}, Threshold: {strategy.Macd2Threshold}, Operator: {strategy.Macd2Operator}");
+            Console.WriteLine($"  ATR Indicator: {strategy.AtrIndicator}");
+            Console.WriteLine($"  Trail Stop Multiplier: {strategy.TrailStopMultiplier}");
+            Console.WriteLine($"  Profit Target Multiplier: {strategy.ProfitTargetMultiplier}");
+            Console.WriteLine();
+        }
+
+        PrintStrategyDetails("AboveEmaLong1", settings.AboveEmaLong1);
+        PrintStrategyDetails("AboveEmaLong2", settings.AboveEmaLong2);
+        PrintStrategyDetails("AboveEmaShort1", settings.AboveEmaShort1);
+        PrintStrategyDetails("AboveEmaShort2", settings.AboveEmaShort2);
+        PrintStrategyDetails("BelowEmaLong1", settings.BelowEmaLong1);
+        PrintStrategyDetails("BelowEmaLong2", settings.BelowEmaLong2);
+        PrintStrategyDetails("BelowEmaShort1", settings.BelowEmaShort1);
+        PrintStrategyDetails("BelowEmaShort2", settings.BelowEmaShort2);
+    }
+
     public static void Main()
     {
         try
@@ -203,6 +227,12 @@ public class SimpleDailyBacktest
             var defaults = new DefaultSettings();
             Console.WriteLine("Use default settings? (YES/NO):");
             bool useDefaults = Console.ReadLine()?.Trim().ToUpper() == "YES";
+
+            // Print strategy summary if using defaults
+            if (useDefaults)
+            {
+                PrintStrategySummary(defaults);
+            }
 
             // Load data and parse indicators from CSV file (BacktestData.csv)
             string[] headers = File.ReadLines("BacktestData.csv").First().Split(',');
@@ -329,8 +359,10 @@ public class SimpleDailyBacktest
 
     private static void ApplyStrategy(Strategy strategy, DateTime dateTime, double closePrice, double atrValue, Dictionary<string, double> indicators, Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades, string positionType)
     {
+        Console.WriteLine($"Checking strategy at {dateTime}: {positionType} - Close Price: {closePrice}, ATR Value: {atrValue}");
         if (CheckEntryConditions(strategy, indicators) && dateTime.TimeOfDay == new TimeSpan(9, 30, 0))
         {
+            Console.WriteLine($"Entry conditions met at {dateTime}");
             var entryPrice = closePrice;
             var trailStop = closePrice - atrValue * strategy.TrailStopMultiplier;
             var targetProfit = closePrice + atrValue * strategy.ProfitTargetMultiplier;
@@ -343,6 +375,10 @@ public class SimpleDailyBacktest
 
             openTrades[dateTime] = (entryPrice, positionType, trailStop, targetProfit);
             LogTrade(dateTime, dateTime, entryPrice, entryPrice, positionType, 0);
+        }
+        else
+        {
+            Console.WriteLine($"Entry conditions not met at {dateTime}");
         }
     }
 
@@ -393,11 +429,13 @@ public class SimpleDailyBacktest
     {
         var random = new Random();
 
-        // Define possible values for randomization
+        // Define possible values for randomization with logical ranges
         string[] cciIndicators = { "CCI_50", "CCI_100", "CCI_200" };
         string[] macdIndicators = { "MACD_12_26", "MACD_9_18", "MACD_24_52" };
         string[] operators = { ">", "<" };
-        double[] atrMultipliers = { 1.5, 2.0, 2.5, 3.0 };
+        double[] atrMultipliers = { 1.5, 2.0, 2.5, 3.0 }; // Logical range for ATR multipliers
+        double[] cciThresholds = { -200, -100, 0, 100, 200 }; // Logical range for CCI thresholds
+        double[] macdThresholds = { -2, -1, 0, 1, 2 }; // Logical range for MACD thresholds
 
         // Randomize settings for all strategies
         var strategies = new[]
@@ -418,6 +456,10 @@ public class SimpleDailyBacktest
             strategy.Macd2Operator = operators[random.Next(operators.Length)];
             strategy.TrailStopMultiplier = atrMultipliers[random.Next(atrMultipliers.Length)];
             strategy.ProfitTargetMultiplier = atrMultipliers[random.Next(atrMultipliers.Length)];
+            strategy.Cci1Threshold = cciThresholds[random.Next(cciThresholds.Length)];
+            strategy.Cci2Threshold = cciThresholds[random.Next(cciThresholds.Length)];
+            strategy.Macd1Threshold = macdThresholds[random.Next(macdThresholds.Length)];
+            strategy.Macd2Threshold = macdThresholds[random.Next(macdThresholds.Length)];
         }
     }
 
