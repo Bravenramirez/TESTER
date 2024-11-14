@@ -197,120 +197,134 @@ public class SimpleDailyBacktest
 {
     public static void Main()
     {
-        // Load default settings and prompt user for optimization mode
-        var defaults = new DefaultSettings();
-        Console.WriteLine("Use default settings? (YES/NO):");
-        bool useDefaults = Console.ReadLine()?.Trim().ToUpper() == "YES";
+        try
+        {
+            // Load default settings and prompt user for optimization mode
+            var defaults = new DefaultSettings();
+            Console.WriteLine("Use default settings? (YES/NO):");
+            bool useDefaults = Console.ReadLine()?.Trim().ToUpper() == "YES";
 
-        // Load data and parse indicators from CSV file (BacktestData.csv)
-        string[] headers = File.ReadLines("BacktestData.csv").First().Split(',');
-        var data = LoadData("BacktestData.csv", headers);
+            // Load data and parse indicators from CSV file (BacktestData.csv)
+            string[] headers = File.ReadLines("BacktestData.csv").First().Split(',');
+            var data = LoadData("BacktestData.csv", headers);
 
-        // Run backtest either in default mode or optimization mode
-        RunBacktest(useDefaults, defaults, headers, data);
+            // Run backtest either in default mode or optimization mode
+            RunBacktest(useDefaults, defaults, headers, data);
 
-        Console.WriteLine("Press any key to exit...");
-        Console.ReadKey();
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey();
+        }
     }
 
     private static List<string[]> LoadData(string filePath, string[] headers)
     {
         var data = new List<string[]>();
-
-        // Read all lines from the CSV file
-        var lines = File.ReadAllLines(filePath);
-
-        // Skip the header line (already parsed)
-        foreach (var line in lines.Skip(1))
+        try
         {
-            // Split each line by comma
-            var values = line.Split(',');
+            var lines = File.ReadAllLines(filePath);
 
-            // Create a dictionary to store the parsed indicators
-            var indicators = new Dictionary<string, double>();
-
-            // Parse each required indicator and add to the dictionary
-            for (int i = 0; i < headers.Length; i++)
+            foreach (var line in lines.Skip(1))
             {
-                string header = headers[i];
-                if (header == "CCI" || header == "MACD" || header == "ATR" || header == "EMA200")
+                var values = line.Split(',');
+                var indicators = new Dictionary<string, double>();
+
+                for (int i = 0; i < headers.Length; i++)
                 {
-                    indicators[header] = double.Parse(values[i], CultureInfo.InvariantCulture);
+                    string header = headers[i];
+                    if (header == "CCI" || header == "MACD" || header == "ATR" || header == "EMA200")
+                    {
+                        indicators[header] = double.Parse(values[i], CultureInfo.InvariantCulture);
+                    }
                 }
+
+                data.Add(values);
             }
-
-            // Add the parsed values to the data list
-            data.Add(values);
         }
-
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while loading data: {ex.Message}");
+        }
         return data;
     }
 
     private static void RunBacktest(bool useDefaults, DefaultSettings defaults, string[] headers, List<string[]> data)
     {
-        // Main loop to execute each strategy using randomized settings if in optimization mode
-        if (useDefaults)
+        try
         {
-            // Run single backtest with predefined default settings
-            PerformBacktest(data, defaults);
+            if (useDefaults)
+            {
+                PerformBacktest(data, defaults);
+            }
+            else
+            {
+                RunOptimization(data, headers, defaults);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            // Run optimization mode, continuously generate and test random strategies
-            RunOptimization(data, headers, defaults);
+            Console.WriteLine($"An error occurred during backtesting: {ex.Message}");
         }
     }
 
     private static double PerformBacktest(List<string[]> data, DefaultSettings settings)
     {
-        var openTrades = new Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)>();
-        var closedTrades = new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>();
-
-        foreach (var line in data)
+        try
         {
-            var dateTime = DateTime.Parse(line[0], CultureInfo.InvariantCulture);
-            var closePrice = double.Parse(line[1], CultureInfo.InvariantCulture);
-            var atrValue = double.Parse(line[2], CultureInfo.InvariantCulture);
+            var openTrades = new Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)>();
+            var closedTrades = new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>();
 
-            var indicators = new Dictionary<string, double>
-        {
-            { "CCI20", double.Parse(line[3], CultureInfo.InvariantCulture) },
-            { "CCI50", double.Parse(line[4], CultureInfo.InvariantCulture) },
-            { "MACD_12_26_9", double.Parse(line[5], CultureInfo.InvariantCulture) },
-            { "MACD_19_39_9", double.Parse(line[6], CultureInfo.InvariantCulture) },
-            { "EMA200", double.Parse(line[7], CultureInfo.InvariantCulture) }
-        };
-
-            // Execute strategies above EMA200
-            if (indicators["EMA200"] < closePrice)
+            foreach (var line in data)
             {
-                ApplyStrategy(settings.AboveEmaLong1, dateTime, closePrice, atrValue, indicators, openTrades, "Long");
-                ApplyStrategy(settings.AboveEmaLong2, dateTime, closePrice, atrValue, indicators, openTrades, "Long");
-                ApplyStrategy(settings.AboveEmaShort1, dateTime, closePrice, atrValue, indicators, openTrades, "Short");
-                ApplyStrategy(settings.AboveEmaShort2, dateTime, closePrice, atrValue, indicators, openTrades, "Short");
-            }
-            // Execute strategies below EMA200
-            else
+                var dateTime = DateTime.Parse(line[0], CultureInfo.InvariantCulture);
+                var closePrice = double.Parse(line[1], CultureInfo.InvariantCulture);
+                var atrValue = double.Parse(line[2], CultureInfo.InvariantCulture);
+
+                var indicators = new Dictionary<string, double>
             {
-                ApplyStrategy(settings.BelowEmaLong1, dateTime, closePrice, atrValue, indicators, openTrades, "Long");
-                ApplyStrategy(settings.BelowEmaLong2, dateTime, closePrice, atrValue, indicators, openTrades, "Long");
-                ApplyStrategy(settings.BelowEmaShort1, dateTime, closePrice, atrValue, indicators, openTrades, "Short");
-                ApplyStrategy(settings.BelowEmaShort2, dateTime, closePrice, atrValue, indicators, openTrades, "Short");
+                { "CCI20", double.Parse(line[3], CultureInfo.InvariantCulture) },
+                { "CCI50", double.Parse(line[4], CultureInfo.InvariantCulture) },
+                { "MACD_12_26_9", double.Parse(line[5], CultureInfo.InvariantCulture) },
+                { "MACD_19_39_9", double.Parse(line[6], CultureInfo.InvariantCulture) },
+                { "EMA200", double.Parse(line[7], CultureInfo.InvariantCulture) }
+            };
+
+                if (indicators["EMA200"] < closePrice)
+                {
+                    ApplyStrategy(settings.AboveEmaLong1, dateTime, closePrice, atrValue, indicators, openTrades, "Long");
+                    ApplyStrategy(settings.AboveEmaLong2, dateTime, closePrice, atrValue, indicators, openTrades, "Long");
+                    ApplyStrategy(settings.AboveEmaShort1, dateTime, closePrice, atrValue, indicators, openTrades, "Short");
+                    ApplyStrategy(settings.AboveEmaShort2, dateTime, closePrice, atrValue, indicators, openTrades, "Short");
+                }
+                else
+                {
+                    ApplyStrategy(settings.BelowEmaLong1, dateTime, closePrice, atrValue, indicators, openTrades, "Long");
+                    ApplyStrategy(settings.BelowEmaLong2, dateTime, closePrice, atrValue, indicators, openTrades, "Long");
+                    ApplyStrategy(settings.BelowEmaShort1, dateTime, closePrice, atrValue, indicators, openTrades, "Short");
+                    ApplyStrategy(settings.BelowEmaShort2, dateTime, closePrice, atrValue, indicators, openTrades, "Short");
+                }
+
+                ManageExits(openTrades, dateTime, closePrice, atrValue);
+
+                foreach (var trade in openTrades.Where(t => t.Value.TrailStop == 0 && t.Value.TargetProfit == 0).ToList())
+                {
+                    closedTrades[trade.Key] = (trade.Value.EntryPrice, closePrice, trade.Value.PositionType);
+                    openTrades.Remove(trade.Key);
+                }
             }
 
-            // Manage exits for open trades
-            ManageExits(openTrades, dateTime, closePrice, atrValue);
-
-            // Move closed trades to closedTrades dictionary
-            foreach (var trade in openTrades.Where(t => t.Value.TrailStop == 0 && t.Value.TargetProfit == 0).ToList())
-            {
-                closedTrades[trade.Key] = (trade.Value.EntryPrice, closePrice, trade.Value.PositionType);
-                openTrades.Remove(trade.Key);
-            }
+            return CalculateResults(closedTrades);
         }
-
-        // Calculate and return the total profit
-        return CalculateResults(closedTrades);
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred during performance backtest: {ex.Message}");
+            return 0;
+        }
     }
 
     private static void ApplyStrategy(Strategy strategy, DateTime dateTime, double closePrice, double atrValue, Dictionary<string, double> indicators, Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades, string positionType)
@@ -409,6 +423,13 @@ public class SimpleDailyBacktest
 
     private static bool CheckEntryConditions(Strategy strategy, Dictionary<string, double> indicators)
     {
+        bool indicatorsExist = indicators.ContainsKey(strategy.CciIndicator1) &&
+                               indicators.ContainsKey(strategy.CciIndicator2) &&
+                               indicators.ContainsKey(strategy.MacdIndicator1) &&
+                               indicators.ContainsKey(strategy.MacdIndicator2);
+
+        if (!indicatorsExist) return false;
+
         bool cci1Condition = EvaluateCondition(indicators[strategy.CciIndicator1], strategy.Cci1Threshold, strategy.Cci1Operator);
         bool cci2Condition = EvaluateCondition(indicators[strategy.CciIndicator2], strategy.Cci2Threshold, strategy.Cci2Operator);
         bool macd1Condition = EvaluateCondition(indicators[strategy.MacdIndicator1], strategy.Macd1Threshold, strategy.Macd1Operator);
