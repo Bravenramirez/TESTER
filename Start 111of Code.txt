@@ -1,0 +1,3567 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+
+public class Strategy
+{
+    // Technical Indicators
+    public required string CciIndicator1 { get; set; }
+    public required string CciIndicator2 { get; set; }
+    public required string MacdIndicator1Line { get; set; }
+    public required string MacdIndicator2Line { get; set; }
+    public required string AtrIndicator { get; set; }
+
+    // Thresholds
+    public double Cci1Threshold { get; set; }
+    public double Cci2Threshold { get; set; }
+    public double Macd1Threshold { get; set; }
+    public double Macd2Threshold { get; set; }
+
+    // Operators
+    public required string Cci1Operator { get; set; }
+    public required string Cci2Operator { get; set; }
+    public required string Macd1Operator { get; set; }
+    public required string Macd2Operator { get; set; }
+
+    // Risk Management
+    public double TrailStopMultiplier { get; set; }
+    public double ProfitTargetMultiplier { get; set; }
+}
+
+public class DefaultSettings
+{using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+
+public class Strategy
+{
+    // Technical Indicators
+    public required string CciIndicator1 { get; set; }
+    public required string CciIndicator2 { get; set; }
+    public required string MacdIndicator1Line { get; set; }
+    public required string MacdIndicator2Line { get; set; }
+    public required string AtrIndicator { get; set; }
+
+    // Thresholds
+    public double Cci1Threshold { get; set; }
+    public double Cci2Threshold { get; set; }
+    public double Macd1Threshold { get; set; }
+    public double Macd2Threshold { get; set; }
+
+    // Operators
+    public required string Cci1Operator { get; set; }
+    public required string Cci2Operator { get; set; }
+    public required string Macd1Operator { get; set; }
+    public required string Macd2Operator { get; set; }
+
+    // Risk Management
+    public double TrailStopMultiplier { get; set; }
+    public double ProfitTargetMultiplier { get; set; }
+}
+
+public class DefaultSettings
+{
+    public Strategy AboveEmaLong1 { get; set; }
+    public Strategy AboveEmaLong2 { get; set; }
+    public Strategy AboveEmaShort1 { get; set; }
+    public Strategy AboveEmaShort2 { get; set; }
+    public Strategy BelowEmaLong1 { get; set; }
+    public Strategy BelowEmaLong2 { get; set; }
+    public Strategy BelowEmaShort1 { get; set; }
+    public Strategy BelowEmaShort2 { get; set; }
+
+    public DefaultSettings()
+    {
+        AboveEmaLong1 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 50,
+            Cci2Threshold = 50,
+            Macd1Threshold = -5,
+            Macd2Threshold = -5,
+            Cci1Operator = ">",
+            Cci2Operator = ">",
+            Macd1Operator = ">",
+            Macd2Operator = ">",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+
+        AboveEmaLong2 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 50,
+            Cci2Threshold = 50,
+            Macd1Threshold = -5,
+            Macd2Threshold = -5,
+            Cci1Operator = ">",
+            Cci2Operator = ">",
+            Macd1Operator = ">",
+            Macd2Operator = ">",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+
+        AboveEmaShort1 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 0,
+            Cci2Threshold = 0,
+            Macd1Threshold = 5,
+            Macd2Threshold = 5,
+            Cci1Operator = "<",
+            Cci2Operator = "<",
+            Macd1Operator = "<",
+            Macd2Operator = "<",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+
+        AboveEmaShort2 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 0,
+            Cci2Threshold = 0,
+            Macd1Threshold = 5,
+            Macd2Threshold = 5,
+            Cci1Operator = "<",
+            Cci2Operator = "<",
+            Macd1Operator = "<",
+            Macd2Operator = "<",
+            TrailStopMultiplier = 5.0,
+            ProfitTargetMultiplier = 5.0
+        };
+
+        BelowEmaLong1 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 50,
+            Cci2Threshold = 50,
+            Macd1Threshold = -5,
+            Macd2Threshold = -5,
+            Cci1Operator = ">",
+            Cci2Operator = ">",
+            Macd1Operator = ">",
+            Macd2Operator = ">",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+
+        BelowEmaLong2 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 50,
+            Cci2Threshold = 50,
+            Macd1Threshold = -5,
+            Macd2Threshold = -5,
+            Cci1Operator = ">",
+            Cci2Operator = ">",
+            Macd1Operator = ">",
+            Macd2Operator = ">",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+
+        BelowEmaShort1 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 0,
+            Cci2Threshold = 0,
+            Macd1Threshold = 5,
+            Macd2Threshold = 5,
+            Cci1Operator = "<",
+            Cci2Operator = "<",
+            Macd1Operator = "<",
+            Macd2Operator = "<",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+
+        BelowEmaShort2 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 0,
+            Cci2Threshold = 0,
+            Macd1Threshold = 5,
+            Macd2Threshold = 5,
+            Cci1Operator = "<",
+            Cci2Operator = "<",
+            Macd1Operator = "<",
+            Macd2Operator = "<",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+    }
+}
+
+public class PriceData
+{
+    public DateTime DateTime { get; set; }
+    public double Open { get; set; }
+    public double High { get; set; }
+    public double Low { get; set; }
+    public double Close { get; set; }
+    public double Volume { get; set; }
+    private Dictionary<string, double> Indicators { get; set; } = new Dictionary<string, double>();
+
+    public double GetIndicator(string key)
+    {
+        return Indicators.ContainsKey(key) ? Indicators[key] : 0;
+    }
+
+    public void SetIndicator(string key, double value)
+    {
+        Indicators[key] = value;
+    }
+}
+
+
+public class SimpleDailyBacktest
+{
+    // Core tracking variables
+    private static DateTime _lastLogTime = DateTime.Now;
+    private static Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> closedTrades =
+        new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>();
+    private static Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> bestTrades =
+        new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>();
+
+    private static void ThrottledLog(string message, TimeSpan minInterval)
+    {
+        var now = DateTime.Now;
+        if (now - _lastLogTime >= minInterval)
+        {
+            Console.WriteLine(message);
+            _lastLogTime = now;
+        }
+    }
+
+    private static void MonitorOpenTrades(
+        DateTime currentTime,
+        double currentPrice,
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades)
+    {
+        var tradesToRemove = new List<DateTime>();
+
+        foreach (var trade in openTrades)
+        {
+            var entryTime = trade.Key;
+            var (entryPrice, positionType, trailStop, targetProfit) = trade.Value;
+
+            if (positionType == "Long")
+            {
+                if (currentPrice >= targetProfit)
+                {
+                    closedTrades.Add(currentTime, (entryPrice, currentPrice, positionType));
+                    tradesToRemove.Add(entryTime);
+                    ThrottledLog($"=== TRADE EXIT (TARGET) ===\nTime: {currentTime.ToString("HH:mm:ss")}\nExit Price: ${currentPrice:F2}\nProfit: ${(currentPrice - entryPrice):F2}", TimeSpan.FromSeconds(1));
+                }
+                else if (currentPrice <= trailStop)
+                {
+                    closedTrades.Add(currentTime, (entryPrice, currentPrice, positionType));
+                    tradesToRemove.Add(entryTime);
+                    ThrottledLog($"=== TRADE EXIT (STOP) ===\nTime: {currentTime.ToString("HH:mm:ss")}\nExit Price: ${currentPrice:F2}\nLoss: ${(currentPrice - entryPrice):F2}", TimeSpan.FromSeconds(1));
+                }
+            }
+            else if (positionType == "Short")
+            {
+                if (currentPrice <= targetProfit)
+                {
+                    closedTrades.Add(currentTime, (entryPrice, currentPrice, positionType));
+                    tradesToRemove.Add(entryTime);
+                    ThrottledLog($"=== TRADE EXIT (TARGET) ===\nTime: {currentTime.ToString("HH:mm:ss")}\nExit Price: ${currentPrice:F2}\nProfit: ${(entryPrice - currentPrice):F2}", TimeSpan.FromSeconds(1));
+                }
+                else if (currentPrice >= trailStop)
+                {
+                    closedTrades.Add(currentTime, (entryPrice, currentPrice, positionType));
+                    tradesToRemove.Add(entryTime);
+                    ThrottledLog($"=== TRADE EXIT (STOP) ===\nTime: {currentTime.ToString("HH:mm:ss")}\nExit Price: ${currentPrice:F2}\nLoss: ${(entryPrice - currentPrice):F2}", TimeSpan.FromSeconds(1));
+                }
+            }
+        }
+
+        foreach (var tradeTime in tradesToRemove)
+        {
+            openTrades.Remove(tradeTime);
+        }
+    }
+
+
+    private static Dictionary<string, double> CalculateIndicators(List<PriceData> data, int index, DefaultSettings settings)
+    {
+        var indicators = new Dictionary<string, double>();
+
+        // MACD Indicators (all combinations from 2_5_9 to 69_150_9)
+        for (int fast = 2; fast <= 69; fast += 2)
+        {
+            int slow = fast * 2 + 1;
+            if (slow > 150) break;
+
+            string macdKey = $"MACD_{fast}_{slow}_9_line";
+            string signalKey = $"MACD_{fast}_{slow}_9_signal";
+            string histKey = $"MACD_{fast}_{slow}_9_histogram";
+
+            indicators[macdKey] = data[index].GetIndicator($"MACD_{fast}_{slow}_9_line");
+            indicators[signalKey] = data[index].GetIndicator($"MACD_{fast}_{slow}_9_signal");
+            indicators[histKey] = data[index].GetIndicator($"MACD_{fast}_{slow}_9_histogram");
+        }
+
+        // CCI Indicators (5 to 295, step of 10)
+        for (int period = 5; period <= 295; period += 10)
+        {
+            string cciKey = $"CCI_{period}";
+            indicators[cciKey] = data[index].GetIndicator($"CCI_{period}");
+        }
+
+        // ATR Indicators (2 to 20, step of 2)
+        for (int period = 2; period <= 20; period += 2)
+        {
+            string atrKey = $"ATR_{period}";
+            indicators[atrKey] = data[index].GetIndicator($"ATR_{period}");
+        }
+
+        // SMA Indicators (2 to 40, step of 2)
+        for (int period = 2; period <= 40; period += 2)
+        {
+            string smaKey = $"SMA_{period}";
+            indicators[smaKey] = data[index].GetIndicator($"SMA_{period}");
+        }
+
+        // EMA 200
+        indicators["EMA200"] = data[index].GetIndicator("EMA200");
+
+        return indicators;
+    }
+
+
+
+
+
+
+    private static DefaultSettings CloneSettings(DefaultSettings original)
+    {
+        var clone = new DefaultSettings();
+        CopyStrategy(original.AboveEmaLong1, clone.AboveEmaLong1);
+        CopyStrategy(original.AboveEmaLong2, clone.AboveEmaLong2);
+        CopyStrategy(original.AboveEmaShort1, clone.AboveEmaShort1);
+        CopyStrategy(original.AboveEmaShort2, clone.AboveEmaShort2);
+        CopyStrategy(original.BelowEmaLong1, clone.BelowEmaLong1);
+        CopyStrategy(original.BelowEmaLong2, clone.BelowEmaLong2);
+        CopyStrategy(original.BelowEmaShort1, clone.BelowEmaShort1);
+        CopyStrategy(original.BelowEmaShort2, clone.BelowEmaShort2);
+        return clone;
+    }
+
+    private static void CopyStrategy(Strategy source, Strategy target)
+    {
+        target.CciIndicator1 = source.CciIndicator1;
+        target.CciIndicator2 = source.CciIndicator2;
+        target.MacdIndicator1Line = source.MacdIndicator1Line;
+        target.MacdIndicator2Line = source.MacdIndicator2Line;
+        target.AtrIndicator = source.AtrIndicator;
+        target.Cci1Threshold = source.Cci1Threshold;
+        target.Cci2Threshold = source.Cci2Threshold;
+        target.Macd1Threshold = source.Macd1Threshold;
+        target.Macd2Threshold = source.Macd2Threshold;
+        target.Cci1Operator = source.Cci1Operator;
+        target.Cci2Operator = source.Cci2Operator;
+        target.Macd1Operator = source.Macd1Operator;
+        target.Macd2Operator = source.Macd2Operator;
+        target.TrailStopMultiplier = source.TrailStopMultiplier;
+        target.ProfitTargetMultiplier = source.ProfitTargetMultiplier;
+    }
+
+
+    private static void PrintStrategySummary(DefaultSettings settings)
+    {
+        Console.WriteLine("\n=== STRATEGY CONFIGURATION SUMMARY ===");
+
+        void PrintStrategyDetails(string name, Strategy strategy)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\n{name} Strategy Configuration:");
+            Console.ResetColor();
+
+            // CCI Settings
+            Console.WriteLine("  CCI Settings:");
+            Console.WriteLine($"    Signal 1: {strategy.CciIndicator1} {strategy.Cci1Operator} {strategy.Cci1Threshold}");
+            Console.WriteLine($"    Signal 2: {strategy.CciIndicator2} {strategy.Cci2Operator} {strategy.Cci2Threshold}");
+
+            // MACD Settings
+            Console.WriteLine("  MACD Settings:");
+            Console.WriteLine($"    Signal 1: {strategy.MacdIndicator1Line} {strategy.Macd1Operator} {strategy.Macd1Threshold}");
+            Console.WriteLine($"    Signal 2: {strategy.MacdIndicator2Line} {strategy.Macd2Operator} {strategy.Macd2Threshold}");
+
+            // Risk Management
+            Console.WriteLine("  Risk Management:");
+            Console.WriteLine($"    ATR: {strategy.AtrIndicator}");
+            Console.WriteLine($"    Trail Stop: {strategy.TrailStopMultiplier}x ATR");
+            Console.WriteLine($"    Profit Target: {strategy.ProfitTargetMultiplier}x ATR");
+        }
+
+        var strategies = new[]
+        {
+        ("Above EMA Long 1", settings.AboveEmaLong1),
+        ("Above EMA Long 2", settings.AboveEmaLong2),
+        ("Above EMA Short 1", settings.AboveEmaShort1),
+        ("Above EMA Short 2", settings.AboveEmaShort2),
+        ("Below EMA Long 1", settings.BelowEmaLong1),
+        ("Below EMA Long 2", settings.BelowEmaLong2),
+        ("Below EMA Short 1", settings.BelowEmaShort1),
+        ("Below EMA Short 2", settings.BelowEmaShort2)
+    };
+
+        foreach (var (name, strategy) in strategies)
+        {
+            PrintStrategyDetails(name, strategy);
+        }
+    }
+    public static void Main()
+    {
+        try
+        {
+            Console.WriteLine("=== BACKTEST SYSTEM INITIALIZATION ===");
+            var defaults = new DefaultSettings();
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\nSelect Trading Mode:");
+            Console.WriteLine("1. Default Settings (Pre-configured long and short strategies)");
+            Console.WriteLine("2. Custom Settings (Modify strategy parameters)");
+            Console.Write("\nEnter choice (1 or 2): ");
+            Console.ResetColor();
+
+            useDefaults = Console.ReadLine()?.Trim() == "1";
+
+            if (useDefaults)
+            {
+                Console.WriteLine("\n=== STRATEGY CONFIGURATION ===");
+                Console.WriteLine("Long Strategy Settings:");
+                PrintStrategySummary(defaults.AboveEmaLong1, defaults.AboveEmaLong2);
+
+                Console.WriteLine("\nShort Strategy Settings:");
+                PrintStrategySummary(defaults.AboveEmaShort1, defaults.AboveEmaShort2);
+            }
+
+            Console.WriteLine("\nLoading market data...");
+            string[] headers = File.ReadLines("BacktestData.csv").First().Split(',');
+            var data = LoadData("BacktestData.csv", headers, defaults, useDefaults);
+
+            Console.WriteLine("\nInitiating backtest with both long and short strategies...");
+            RunBacktest(useDefaults, defaults, headers, data);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nBacktest completed successfully!");
+            Console.ResetColor();
+
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
+        }
+        catch (Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"\nSystem Error: {ex.Message}");
+            Console.WriteLine($"Technical Details: {ex.StackTrace}");
+            Console.ResetColor();
+
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
+        }
+    }
+
+    private static void PrintStrategySummary(Strategy long1, Strategy long2)
+    {
+        Console.WriteLine($"Entry Conditions:");
+        Console.WriteLine($"- CCI Parameters: {long1.CciIndicator1}, {long1.CciIndicator2}");
+        Console.WriteLine($"- MACD Lines: {long1.MacdIndicator1Line}, {long1.MacdIndicator2Line}");
+        Console.WriteLine($"Risk Management:");
+        Console.WriteLine($"- Trail Stop: {long1.TrailStopMultiplier}x ATR");
+        Console.WriteLine($"- Profit Target: {long1.ProfitTargetMultiplier}x ATR");
+    }
+
+
+    private static List<Dictionary<string, double>> LoadData(string filePath, string[] headers, DefaultSettings settings, bool useDefaults)
+    {
+        var data = new List<Dictionary<string, double>>();
+
+        if (useDefaults)
+        {
+            var requiredIndicators = new HashSet<string>
+        {
+            // AboveEmaLong1
+            settings.AboveEmaLong1.AtrIndicator,
+            settings.AboveEmaLong1.CciIndicator1,
+            settings.AboveEmaLong1.CciIndicator2,
+            settings.AboveEmaLong1.MacdIndicator1Line,
+            settings.AboveEmaLong1.MacdIndicator2Line,
+            
+            // AboveEmaLong2
+            settings.AboveEmaLong2.AtrIndicator,
+            settings.AboveEmaLong2.CciIndicator1,
+            settings.AboveEmaLong2.CciIndicator2,
+            settings.AboveEmaLong2.MacdIndicator1Line,
+            settings.AboveEmaLong2.MacdIndicator2Line,
+            
+            // AboveEmaShort1
+            settings.AboveEmaShort1.AtrIndicator,
+            settings.AboveEmaShort1.CciIndicator1,
+            settings.AboveEmaShort1.CciIndicator2,
+            settings.AboveEmaShort1.MacdIndicator1Line,
+            settings.AboveEmaShort1.MacdIndicator2Line,
+            
+            // AboveEmaShort2
+            settings.AboveEmaShort2.AtrIndicator,
+            settings.AboveEmaShort2.CciIndicator1,
+            settings.AboveEmaShort2.CciIndicator2,
+            settings.AboveEmaShort2.MacdIndicator1Line,
+            settings.AboveEmaShort2.MacdIndicator2Line,
+            
+            // BelowEmaLong1
+            settings.BelowEmaLong1.AtrIndicator,
+            settings.BelowEmaLong1.CciIndicator1,
+            settings.BelowEmaLong1.CciIndicator2,
+            settings.BelowEmaLong1.MacdIndicator1Line,
+            settings.BelowEmaLong1.MacdIndicator2Line,
+            
+            // BelowEmaLong2
+            settings.BelowEmaLong2.AtrIndicator,
+            settings.BelowEmaLong2.CciIndicator1,
+            settings.BelowEmaLong2.CciIndicator2,
+            settings.BelowEmaLong2.MacdIndicator1Line,
+            settings.BelowEmaLong2.MacdIndicator2Line,
+            
+            // BelowEmaShort1
+            settings.BelowEmaShort1.AtrIndicator,
+            settings.BelowEmaShort1.CciIndicator1,
+            settings.BelowEmaShort1.CciIndicator2,
+            settings.BelowEmaShort1.MacdIndicator1Line,
+            settings.BelowEmaShort1.MacdIndicator2Line,
+            
+            // BelowEmaShort2
+            settings.BelowEmaShort2.AtrIndicator,
+            settings.BelowEmaShort2.CciIndicator1,
+            settings.BelowEmaShort2.CciIndicator2,
+            settings.BelowEmaShort2.MacdIndicator1Line,
+            settings.BelowEmaShort2.MacdIndicator2Line,
+
+            "EMA200"
+        };
+
+            Console.WriteLine("\n=== Data Loading Diagnostics ===");
+            Console.WriteLine("Available indicators in file:");
+            Console.WriteLine(string.Join(", ", headers));
+
+            Console.WriteLine("\nValidating required indicators:");
+            foreach (var indicator in requiredIndicators)
+            {
+                var exists = headers.Contains(indicator);
+                Console.WriteLine($"- {indicator}: {(exists ? "Found" : "Missing")}");
+            }
+        }
+
+        try
+        {
+            var lines = File.ReadAllLines(filePath);
+            Console.WriteLine($"\nProcessing {lines.Length - 1} data rows...");
+
+            foreach (var line in lines.Skip(1))
+            {
+                var values = line.Split(',');
+                var indicators = new Dictionary<string, double>();
+
+                for (int i = 0; i < headers.Length; i++)
+                {
+                    string header = headers[i];
+                    if (header == "DateTime")
+                    {
+                        indicators[header] = DateTime.Parse(values[i], CultureInfo.InvariantCulture).ToOADate();
+                        continue;
+                    }
+
+                    if (double.TryParse(values[i], NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
+                    {
+                        indicators[header] = result;
+                    }
+                }
+
+                data.Add(indicators);
+
+                if (data.Count == 1)
+                {
+                    Console.WriteLine("\nFirst row indicator values:");
+                    foreach (var kvp in indicators.OrderBy(x => x.Key))
+                    {
+                        Console.WriteLine($"- {kvp.Key}: {kvp.Value}");
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"\nData Loading Error:");
+            Console.WriteLine($"Type: {ex.GetType().Name}");
+            Console.WriteLine($"Message: {ex.Message}");
+            Console.WriteLine($"Stack: {ex.StackTrace}");
+        }
+
+        return data;
+    }
+
+
+
+    private static double bestProfit = double.MinValue;
+    private static DefaultSettings bestSettings = null;
+    private static int optimizationCount = 0;
+    private static string logPath;
+
+    private static void RunBacktest(bool useDefaults, DefaultSettings defaults, string[] headers, List<Dictionary<string, double>> data)
+    {
+        logPath = useDefaults ? "defaulttradelog.csv" : "randomtradelog.csv";
+
+        try
+        {
+            Console.WriteLine("=== Starting Backtest ===");
+            WriteTradeLogHeader(logPath);  // Initialize trade log with headers
+
+            if (useDefaults)
+            {
+                Console.WriteLine("Running single pass with default settings...");
+                var currentTrades = new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>();
+                double result = PerformBacktest(data, defaults, true);
+                SaveDefaultValuesResults(result, defaults);
+                GenerateSummary(currentTrades, defaults);
+                return;
+            }
+
+            // Optimization mode
+            int testsCompleted = 0;
+            const int PROGRESS_INTERVAL = 100;
+            Console.WriteLine("Starting optimization mode. Press any key to stop...");
+
+            while (!Console.KeyAvailable)
+            {
+                RandomizeStrategySettings(defaults);
+                var currentTrades = new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>();
+                double result = PerformBacktest(data, defaults, false);
+                testsCompleted++;
+
+                if (result > bestProfit)
+                {
+                    bestProfit = result;
+                    bestSettings = CloneSettings(defaults);
+                    bestTrades = new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>(currentTrades);
+
+                    // Log best trades when new best strategy is found
+                    foreach (var trade in bestTrades)
+                    {
+                        LogTrade(logPath,
+                            trade.Key,                              // Entry time 
+                            trade.Key,                              // Initial exit time (same as entry)
+                            trade.Value.EntryPrice,                 // Entry price
+                            trade.Value.EntryPrice,                 // Initial exit price (same as entry)
+                            trade.Value.PositionType,               // Direction
+                            0.0,                                    // Initial P/L
+                            true);                                  // Is entry
+
+                        // Log exit details
+                        LogTrade(logPath,
+                            trade.Key,                              // Entry time
+                            trade.Key.AddMinutes(1),                // Actual exit time
+                            trade.Value.EntryPrice,                 // Entry price
+                            trade.Value.ExitPrice,                  // Exit price
+                            trade.Value.PositionType,               // Direction
+                            trade.Value.ExitPrice - trade.Value.EntryPrice,  // Actual P/L
+                            false);                                 // Is exit
+                    }
+
+                    Console.WriteLine($"\nNew Best Strategy Found!");
+                    Console.WriteLine($"Profit: ${bestProfit:F2}");
+                    DisplayQuickStats(bestTrades, bestSettings);
+                }
+
+                if (testsCompleted % PROGRESS_INTERVAL == 0)
+                {
+                    Console.WriteLine($"\rTests completed: {testsCompleted} | Current Best: ${bestProfit:F2}");
+                }
+            }
+
+            if (bestSettings != null)
+            {
+                SaveOptimizationResults(bestProfit, bestSettings);
+                GenerateSummary(bestTrades, bestSettings);
+                ExportBestTrades(bestTrades);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in RunBacktest: {ex.Message}");
+        }
+    }
+
+
+    private static void DisplayQuickStats(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades, DefaultSettings settings)
+    {
+        int winningTrades = trades.Count(t =>
+            (t.Value.PositionType == "Long" && t.Value.ExitPrice > t.Value.EntryPrice) ||
+            (t.Value.PositionType == "Short" && t.Value.ExitPrice < t.Value.EntryPrice));
+
+        double winRate = trades.Count > 0 ? (double)winningTrades / trades.Count * 100 : 0;
+
+        Console.WriteLine($"Total Trades: {trades.Count}");
+        Console.WriteLine($"Winning Trades: {winningTrades} ({winRate:F2}%)");
+        Console.WriteLine($"Settings: Trail Stop: {settings.AboveEmaLong1.TrailStopMultiplier:F2} | Target: {settings.AboveEmaLong1.ProfitTargetMultiplier:F2}");
+    }
+
+    private static void ExportTrades(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades)
+    {
+        var csv = new StringBuilder();
+        csv.AppendLine("EntryTime,ExitTime,EntryPrice,ExitPrice,PositionType,Profit");
+
+        foreach (var trade in trades.OrderBy(t => t.Key))
+        {
+            var entryTime = trade.Key;
+            var (entryPrice, exitPrice, positionType) = trade.Value;
+            var profit = positionType == "Long" ? exitPrice - entryPrice : entryPrice - exitPrice;
+
+            csv.AppendLine($"{entryTime:yyyy-MM-dd HH:mm:ss},{trade.Key:yyyy-MM-dd HH:mm:ss},{entryPrice:F2},{exitPrice:F2},{positionType},{profit:F2}");
+        }
+
+        File.WriteAllText("trades.csv", csv.ToString());
+    }
+
+    private static void ExportBestTrades(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades)
+    {
+        using (StreamWriter writer = new StreamWriter("BestTrades.csv"))
+        {
+            writer.WriteLine("Date,EntryPrice,ExitPrice,Type,Profit,ProfitPercent");
+
+            foreach (var trade in trades.OrderByDescending(t =>
+                Math.Abs(t.Value.ExitPrice - t.Value.EntryPrice) / t.Value.EntryPrice * 100))
+            {
+                double profit = trade.Value.PositionType == "Long" ?
+                    trade.Value.ExitPrice - trade.Value.EntryPrice :
+                    trade.Value.EntryPrice - trade.Value.ExitPrice;
+
+                double profitPercent = profit / trade.Value.EntryPrice * 100;
+
+                writer.WriteLine($"{trade.Key:yyyy-MM-dd HH:mm:ss}," +
+                               $"{trade.Value.EntryPrice:F2}," +
+                               $"{trade.Value.ExitPrice:F2}," +
+                               $"{trade.Value.PositionType}," +
+                               $"{profit:F2}," +
+                               $"{profitPercent:F2}%");
+            }
+        }
+    }
+
+
+    private static double PerformBacktest(List<Dictionary<string, double>> data, DefaultSettings settings, bool useDefaults)
+    {
+        var openTrades = new Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)>();
+        var closedTrades = new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>();
+        bool tradeOpen = false;
+        double totalProfit = 0;
+
+        if (!FastMode)
+        {
+            Console.WriteLine("\n=== BACKTEST INITIALIZATION ===");
+            Console.WriteLine($"Data points to process: {data.Count}");
+            Console.WriteLine($"Starting time: {DateTime.Now}");
+            Console.WriteLine("=== INDICATOR CONFIGURATION ===");
+            Console.WriteLine($"ATR Indicator: {settings.AboveEmaLong1.AtrIndicator}");
+            Console.WriteLine($"CCI Indicators: {settings.AboveEmaLong1.CciIndicator1}, {settings.AboveEmaLong1.CciIndicator2}");
+            Console.WriteLine($"MACD Lines: {settings.AboveEmaLong1.MacdIndicator1Line}, {settings.AboveEmaLong1.MacdIndicator2Line}\n");
+        }
+
+        for (int i = 0; i < data.Count; i++)
+        {
+            var line = data[i];
+            var dateTime = DateTime.FromOADate(line["DateTime"]);
+            var closePrice = line["Close"];
+            var atrValue = line[settings.AboveEmaLong1.AtrIndicator];
+
+            if (tradeOpen && openTrades.Any())
+            {
+                ProcessAndManageTrades(dateTime, closePrice, atrValue, openTrades, closedTrades, ref tradeOpen);
+            }
+
+            var requiredIndicators = new HashSet<string>
+        {
+            settings.AboveEmaLong1.CciIndicator1,
+            settings.AboveEmaLong1.CciIndicator2,
+            settings.AboveEmaLong1.MacdIndicator1Line,
+            settings.AboveEmaLong1.MacdIndicator2Line,
+            "EMA200"
+        };
+
+            if (requiredIndicators.Any(indicator => !line.ContainsKey(indicator)))
+            {
+                if (!FastMode) Console.WriteLine($"Missing indicators at {dateTime:yyyy-MM-dd} - skipping bar");
+                continue;
+            }
+
+            var indicators = new Dictionary<string, double>
+        {
+            { settings.AboveEmaLong1.CciIndicator1, line[settings.AboveEmaLong1.CciIndicator1] },
+            { settings.AboveEmaLong1.CciIndicator2, line[settings.AboveEmaLong1.CciIndicator2] },
+            { settings.AboveEmaLong1.MacdIndicator1Line, line[settings.AboveEmaLong1.MacdIndicator1Line] },
+            { settings.AboveEmaLong1.MacdIndicator2Line, line[settings.AboveEmaLong1.MacdIndicator2Line] },
+            { "EMA200", line["EMA200"] }
+        };
+
+            if (!tradeOpen)
+            {
+                if (indicators["EMA200"] < closePrice)
+                {
+                    tradeOpen = ExecuteAboveEmaStrategies(settings, dateTime, closePrice, atrValue, indicators, openTrades);
+                    if (tradeOpen)
+                    {
+                        LogTrade(logPath, dateTime, dateTime, closePrice, closePrice, "Long", 0.0, true);
+                    }
+                }
+                else
+                {
+                    tradeOpen = ExecuteBelowEmaStrategies(settings, dateTime, closePrice, atrValue, indicators, openTrades);
+                    if (tradeOpen)
+                    {
+                        LogTrade(logPath, dateTime, dateTime, closePrice, closePrice, "Short", 0.0, true);
+                    }
+                }
+            }
+
+            if (tradeOpen && !FastMode)
+            {
+                foreach (var trade in openTrades)
+                {
+                    double currentPnL = trade.Value.PositionType == "Long" ?
+                        closePrice - trade.Value.EntryPrice :
+                        trade.Value.EntryPrice - closePrice;
+
+                    Console.WriteLine($"Current P&L: ${currentPnL:F2}");
+                }
+            }
+        }
+
+        totalProfit = CalculateResults(closedTrades);
+
+        if (!FastMode && useDefaults)
+        {
+            PrintTradingSummary(closedTrades, totalProfit);
+        }
+
+        return totalProfit;
+    }
+
+    private static void PrintTradingSummary(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> closedTrades, double totalProfit)
+    {
+        int winningTrades = closedTrades.Count(t =>
+            (t.Value.PositionType == "Long" && t.Value.ExitPrice > t.Value.EntryPrice) ||
+            (t.Value.PositionType == "Short" && t.Value.ExitPrice < t.Value.EntryPrice));
+
+        Console.WriteLine("\n=== TRADING SUMMARY ===");
+        Console.WriteLine($"Total Trades: {closedTrades.Count}");
+        Console.WriteLine($"Winning Trades: {winningTrades}");
+        if (closedTrades.Count > 0)
+        {
+            Console.WriteLine($"Win Rate: {(double)winningTrades / closedTrades.Count:P2}");
+            Console.WriteLine($"Total Profit: ${totalProfit:F2}");
+            Console.WriteLine($"Average Profit per Trade: ${totalProfit / closedTrades.Count:F2}");
+        }
+        Console.WriteLine($"\nBacktest completed with {closedTrades.Count} trades");
+    }
+
+
+    private static bool FastMode;
+    private static double _cumulativeProfit = 0;
+
+    static SimpleDailyBacktest()
+    {
+        Console.WriteLine("Select execution mode:");
+        Console.WriteLine("1. FAST (minimal output, trades only)");
+        Console.WriteLine("2. SLOW (detailed logging)");
+        Console.Write("Enter choice (1 or 2): ");
+
+        FastMode = Console.ReadLine()?.Trim() == "1";
+        Console.Clear();
+    }
+
+    private static void ProcessAndManageTrades(
+        DateTime currentTime,
+        double currentPrice,
+        double atrValue,
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades,
+        Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> closedTrades,
+        ref bool tradeOpen)
+    {
+        if (!openTrades.Any()) return;
+
+        if (!FastMode)
+        {
+            Console.WriteLine($"\n=== Trade Status at {currentTime} ===");
+            Console.WriteLine($"Open Trades Count: {openTrades.Count}");
+            Console.WriteLine($"Current Market Price: ${currentPrice:F2}");
+        }
+
+        foreach (var trade in openTrades.ToList())
+        {
+            var (entryPrice, positionType, currentTrailStop, targetProfit) = trade.Value;
+            double currentPnL = positionType == "Long" ? currentPrice - entryPrice : entryPrice - currentPrice;
+
+            if (!FastMode)
+            {
+                Console.WriteLine($"\nMonitoring Trade Entered at: {trade.Key}");
+                Console.WriteLine($"Entry Price: ${entryPrice:F2}");
+                Console.WriteLine($"Current Trail Stop: ${currentTrailStop:F2}");
+                Console.WriteLine($"Target: ${targetProfit:F2}");
+                Console.WriteLine($"Current P/L: ${currentPnL:F2}");
+            }
+
+            double newTrailStop = positionType == "Long"
+                ? currentPrice - (atrValue * 2.0)
+                : currentPrice + (atrValue * 2.0);
+
+            if ((positionType == "Long" && newTrailStop > currentTrailStop) ||
+                (positionType == "Short" && newTrailStop < currentTrailStop))
+            {
+                openTrades[trade.Key] = (entryPrice, positionType, newTrailStop, targetProfit);
+                if (!FastMode) Console.WriteLine($"Trail Stop Updated to: ${newTrailStop:F2}");
+            }
+
+            bool exitTriggered = false;
+            string exitReason = "";
+
+            if ((positionType == "Long" && currentPrice >= targetProfit) ||
+                (positionType == "Short" && currentPrice <= targetProfit))
+            {
+                exitTriggered = true;
+                exitReason = "Target Hit";
+            }
+            else if ((positionType == "Long" && currentPrice <= currentTrailStop) ||
+                     (positionType == "Short" && currentPrice >= currentTrailStop))
+            {
+                exitTriggered = true;
+                exitReason = "Stop Hit";
+            }
+            else if (currentTime.TimeOfDay >= new TimeSpan(15, 55, 0))
+            {
+                exitTriggered = true;
+                exitReason = "Market Close";
+            }
+
+            if (exitTriggered)
+            {
+                if (!FastMode) Console.WriteLine($"EXIT: {exitReason}!");
+                closedTrades[currentTime] = (entryPrice, currentPrice, positionType);
+                LogTrade(logPath, trade.Key, currentTime, entryPrice, currentPrice, positionType, currentPnL, false);
+                openTrades.Remove(trade.Key);
+                tradeOpen = false;
+            }
+        }
+    }
+
+
+
+
+    private static void PrintDetailedTradeInfo(DateTime currentTime, double currentPrice,
+        double entryPrice, string positionType, double currentTrailStop, double targetProfit)
+    {
+        Console.WriteLine($"\n=== Trade Monitor at {currentTime:HH:mm:ss} ===");
+        Console.WriteLine($"Position: {positionType}");
+        Console.WriteLine($"Current Price: ${currentPrice:F2}");
+        Console.WriteLine($"Entry Price: ${entryPrice:F2}");
+        Console.WriteLine($"Current P&L: ${(currentPrice - entryPrice):F2}");
+        Console.WriteLine($"Trail Stop: ${currentTrailStop:F2}");
+        Console.WriteLine($"Target: ${targetProfit:F2}");
+        Console.WriteLine("\n=== EXIT CONDITION CHECK ===");
+        Console.WriteLine($"Distance to Target: ${targetProfit - currentPrice:F2} [Target: ${targetProfit:F2}]");
+        Console.WriteLine($"Distance to Stop: ${currentPrice - currentTrailStop:F2} [Stop: ${currentTrailStop:F2}]");
+        Console.WriteLine($"Time to Market Close: {new TimeSpan(15, 55, 0) - currentTime.TimeOfDay} [Exit: 15:55:00]");
+        Console.WriteLine($"Current Status: {(currentPrice > currentTrailStop ? "Above Stop" : "STOP HIT")} | {(currentPrice < targetProfit ? "Below Target" : "TARGET HIT")}");
+    }
+
+
+    private static bool ExecuteAboveEmaStrategies(DefaultSettings settings, DateTime dateTime, double closePrice,
+        double atrValue, Dictionary<string, double> indicators,
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades)
+    {
+        return ApplyStrategy(settings.AboveEmaLong1, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Long") ||
+               ApplyStrategy(settings.AboveEmaLong2, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Long") ||
+               ApplyStrategy(settings.AboveEmaShort1, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Short") ||
+               ApplyStrategy(settings.AboveEmaShort2, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Short");
+    }
+
+    private static bool ExecuteBelowEmaStrategies(DefaultSettings settings, DateTime dateTime, double closePrice,
+        double atrValue, Dictionary<string, double> indicators,
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades)
+    {
+        return ApplyStrategy(settings.BelowEmaLong1, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Long") ||
+               ApplyStrategy(settings.BelowEmaLong2, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Long") ||
+               ApplyStrategy(settings.BelowEmaShort1, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Short") ||
+               ApplyStrategy(settings.BelowEmaShort2, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Short");
+    }
+
+
+
+
+
+    private static void PrintIndicatorValues(DateTime dateTime, double closePrice, Dictionary<string, double> indicators, DefaultSettings settings)
+    {
+        if (FastMode) return;
+
+        Console.WriteLine("\n=================================================");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"Market Data - {dateTime:yyyy-MM-dd HH:mm:ss}");
+        Console.WriteLine($"Close Price: ${closePrice:F2}");
+        Console.ResetColor();
+        Console.WriteLine("=================================================");
+
+        var strategies = new Dictionary<string, Strategy>
+    {
+        { "AboveEmaLong1", settings.AboveEmaLong1 },
+        { "AboveEmaLong2", settings.AboveEmaLong2 },
+        { "AboveEmaShort1", settings.AboveEmaShort1 },
+        { "AboveEmaShort2", settings.AboveEmaShort2 },
+        { "BelowEmaLong1", settings.BelowEmaLong1 },
+        { "BelowEmaLong2", settings.BelowEmaLong2 },
+        { "BelowEmaShort1", settings.BelowEmaShort1 },
+        { "BelowEmaShort2", settings.BelowEmaShort2 }
+    };
+
+        foreach (var strategyPair in strategies)
+        {
+            var strategy = strategyPair.Value;
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\nStrategy: {strategyPair.Key}");
+            Console.ResetColor();
+
+            // CCI Indicators
+            Console.WriteLine("  CCI Indicators:");
+            if (indicators.ContainsKey(strategy.CciIndicator1) && indicators.ContainsKey(strategy.CciIndicator2))
+            {
+                PrintIndicator("CCI-1", strategy.CciIndicator1, indicators[strategy.CciIndicator1],
+                              strategy.Cci1Operator, strategy.Cci1Threshold);
+                PrintIndicator("CCI-2", strategy.CciIndicator2, indicators[strategy.CciIndicator2],
+                              strategy.Cci2Operator, strategy.Cci2Threshold);
+            }
+
+            // MACD Indicators
+            Console.WriteLine("  MACD Indicators:");
+            if (indicators.ContainsKey(strategy.MacdIndicator1Line) && indicators.ContainsKey(strategy.MacdIndicator2Line))
+            {
+                PrintIndicator("MACD-1", strategy.MacdIndicator1Line, indicators[strategy.MacdIndicator1Line],
+                              strategy.Macd1Operator, strategy.Macd1Threshold);
+                PrintIndicator("MACD-2", strategy.MacdIndicator2Line, indicators[strategy.MacdIndicator2Line],
+                              strategy.Macd2Operator, strategy.Macd2Threshold);
+            }
+
+            // Risk Management
+            Console.WriteLine("  Risk Management:");
+            if (indicators.ContainsKey(strategy.AtrIndicator))
+            {
+                Console.WriteLine($"    ATR: {strategy.AtrIndicator} = {indicators[strategy.AtrIndicator]:F4}");
+                Console.WriteLine($"    Trail Stop: {strategy.TrailStopMultiplier}x ATR");
+                Console.WriteLine($"    Profit Target: {strategy.ProfitTargetMultiplier}x ATR");
+            }
+        }
+    }
+
+    private static void PrintIndicator(string name, string indicator, double value, string op, double threshold)
+    {
+        if (FastMode) return;
+
+        Console.Write($"    {name}: {indicator} = ");
+        Console.ForegroundColor = value > threshold ? ConsoleColor.Green : ConsoleColor.Red;
+        Console.Write($"{value:F4}");
+        Console.ResetColor();
+        Console.WriteLine($" ({op} {threshold:F4})");
+    }
+
+    private static bool ApplyStrategy(Strategy strategy, DateTime dateTime, double closePrice, double atrValue,
+        Dictionary<string, double> indicators,
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades,
+        Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> closedTrades,
+        string positionType)
+    {
+        if (CheckEntryConditions(strategy, indicators) &&
+            dateTime.TimeOfDay >= new TimeSpan(9, 30, 0) &&
+            dateTime.TimeOfDay < new TimeSpan(15, 55, 0))
+        {
+            double trailStop = positionType == "Long"
+                ? closePrice - (atrValue * strategy.TrailStopMultiplier)
+                : closePrice + (atrValue * strategy.TrailStopMultiplier);
+
+            double targetProfit = positionType == "Long"
+                ? closePrice + (atrValue * strategy.ProfitTargetMultiplier)
+                : closePrice - (atrValue * strategy.ProfitTargetMultiplier);
+
+            double risk = Math.Abs(closePrice - trailStop);
+
+            openTrades[dateTime] = (closePrice, positionType, trailStop, targetProfit);
+
+            if (!FastMode)
+            {
+                Console.WriteLine("\n=== NEW TRADE ENTRY ===");
+                Console.WriteLine($"Time: {dateTime:HH:mm:ss}");
+                Console.WriteLine($"Position: {positionType}");
+                Console.WriteLine($"Entry Price: ${closePrice:F2}");
+                Console.WriteLine($"Initial Trail Stop: ${trailStop:F2}");
+                Console.WriteLine($"Target: ${targetProfit:F2}");
+                Console.WriteLine($"Risk: ${risk:F2}");
+                Console.WriteLine($"Reward: ${risk:F2}");
+                Console.WriteLine("\n=== ACTIVE TRADE STATUS ===");
+                Console.WriteLine($"Entry Time: {dateTime}");
+                Console.WriteLine($"Entry Price: ${closePrice:F2}");
+                Console.WriteLine($"Current P&L: $0.00");
+                Console.WriteLine($"Trail Stop: ${trailStop:F2}");
+                Console.WriteLine($"Target: ${targetProfit:F2}");
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+
+
+    private static void WriteTradeLogHeader(string logPath) => File.WriteAllText(logPath, "EntryTime,ExitTime,EntryPrice,ExitPrice,Direction,PnL,IsEntry\n");
+
+    private static void LogTrade(string logPath, DateTime entryTime, DateTime exitTime, double entryPrice,
+        double exitPrice, string direction, double pnl, bool isEntry)
+    {
+        try
+        {
+            if (!File.Exists(logPath))
+            {
+                WriteTradeLogHeader(logPath);
+            }
+
+            string tradeData = $"{entryTime:yyyy-MM-dd HH:mm:ss}," +
+                              $"{exitTime:yyyy-MM-dd HH:mm:ss}," +
+                              $"{entryPrice:F2}," +
+                              $"{exitPrice:F2}," +
+                              $"{direction}," +
+                              $"{pnl:F2}," +
+                              $"{isEntry}";
+
+            File.AppendAllText(logPath, tradeData + Environment.NewLine);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error logging trade: {ex.Message}");
+        }
+    }
+
+
+
+
+
+    private static double RunOptimization(List<Dictionary<string, double>> data, string[] headers, DefaultSettings defaults)
+    {
+        bool useDefaults = true;  // or false depending on your needs
+        var bestProfit = double.MinValue;
+        var bestSettings = new DefaultSettings();
+        var startTime = DateTime.Now;
+        var timeout = TimeSpan.FromHours(12); // 12-hour runtime for overnight processing
+        var totalTests = 100000; // Increased tests for longer runtime
+        var testsCompleted = 0;
+
+        Console.WriteLine("Optimization running. Press any key to stop...");
+
+        while (!Console.KeyAvailable &&
+               DateTime.Now - startTime < timeout &&
+               testsCompleted < totalTests)
+        {
+            RandomizeStrategySettings(defaults);
+            var result = PerformBacktest(data, defaults, useDefaults);
+            testsCompleted++;
+
+            if (testsCompleted % 50 == 0) // Show progress every 50 tests
+            {
+                Console.WriteLine($"Test {testsCompleted}/{totalTests} - Current Profit: {result}");
+            }
+
+            if (result > bestProfit)
+            {
+                bestProfit = result;
+                bestSettings = new DefaultSettings
+                {
+                    AboveEmaLong1 = defaults.AboveEmaLong1,
+                    AboveEmaLong2 = defaults.AboveEmaLong2,
+                    AboveEmaShort1 = defaults.AboveEmaShort1,
+                    AboveEmaShort2 = defaults.AboveEmaShort2,
+                    BelowEmaLong1 = defaults.BelowEmaLong1,
+                    BelowEmaLong2 = defaults.BelowEmaLong2,
+                    BelowEmaShort1 = defaults.BelowEmaShort1,
+                    BelowEmaShort2 = defaults.BelowEmaShort2
+                };
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"New Best Profit Found: {bestProfit}!");
+                Console.ResetColor();
+            }
+        }
+
+        // Results will always be saved, regardless of how the process ends
+        Console.WriteLine($"\nOptimization Complete!");
+        Console.WriteLine($"Tests Completed: {testsCompleted}");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"Best Profit: {bestProfit}");
+        Console.ResetColor();
+        SaveOptimizationResults(bestProfit, bestSettings);
+
+        return bestProfit;
+    }
+
+
+    private static void RandomizeStrategySettings(DefaultSettings settings)
+    {
+        var random = new Random();
+
+        string[] cciIndicators = {
+        "CCI_5", "CCI_15", "CCI_25", "CCI_35", "CCI_45", "CCI_55",
+        "CCI_65", "CCI_75", "CCI_85", "CCI_95", "CCI_105", "CCI_115",
+        "CCI_125", "CCI_135", "CCI_145", "CCI_155", "CCI_165", "CCI_175",
+        "CCI_185", "CCI_195", "CCI_205", "CCI_215", "CCI_225", "CCI_235",
+        "CCI_245", "CCI_255", "CCI_265", "CCI_275", "CCI_285", "CCI_295"
+    };
+
+        string[] macdIndicators = {
+        "MACD_2_5_9_line", "MACD_4_10_9_line", "MACD_6_15_9_line",
+        "MACD_9_20_9_line", "MACD_11_25_9_line", "MACD_13_30_9_line",
+        "MACD_16_35_9_line", "MACD_18_40_9_line", "MACD_20_45_9_line",
+        "MACD_23_50_9_line", "MACD_25_55_9_line", "MACD_27_60_9_line",
+        "MACD_29_65_9_line", "MACD_32_70_9_line", "MACD_34_75_9_line",
+        "MACD_36_80_9_line", "MACD_39_85_9_line", "MACD_41_90_9_line",
+        "MACD_43_95_9_line", "MACD_46_100_9_line", "MACD_48_105_9_line",
+        "MACD_50_110_9_line", "MACD_52_115_9_line", "MACD_55_120_9_line"
+    };
+
+        string[] atrIndicators = {
+        "ATR_2", "ATR_4", "ATR_6", "ATR_8", "ATR_10",
+        "ATR_12", "ATR_14", "ATR_16", "ATR_18", "ATR_20"
+    };
+
+        string[] operators = { ">", "<" };
+
+        var strategies = new[]
+        {
+        settings.AboveEmaLong1, settings.AboveEmaLong2, settings.AboveEmaShort1, settings.AboveEmaShort2,
+        settings.BelowEmaLong1, settings.BelowEmaLong2, settings.BelowEmaShort1, settings.BelowEmaShort2
+    };
+
+        foreach (var strategy in strategies)
+        {
+            strategy.CciIndicator1 = cciIndicators[random.Next(cciIndicators.Length)];
+            strategy.CciIndicator2 = cciIndicators[random.Next(cciIndicators.Length)];
+            strategy.MacdIndicator1Line = macdIndicators[random.Next(macdIndicators.Length)];
+            strategy.MacdIndicator2Line = macdIndicators[random.Next(macdIndicators.Length)];
+            strategy.AtrIndicator = atrIndicators[random.Next(atrIndicators.Length)];
+            strategy.Cci1Operator = operators[random.Next(operators.Length)];
+            strategy.Cci2Operator = operators[random.Next(operators.Length)];
+            strategy.Macd1Operator = operators[random.Next(operators.Length)];
+            strategy.Macd2Operator = operators[random.Next(operators.Length)];
+
+            strategy.Cci1Threshold = random.Next(-60, 61) * 5;  // -300 to 300 by 5
+            strategy.Cci2Threshold = random.Next(-60, 61) * 5;  // -300 to 300 by 5
+            strategy.Macd1Threshold = (random.Next(-100, 101)) / 100.0;  // -1 to 1 by 0.01
+            strategy.Macd2Threshold = (random.Next(-100, 101)) / 100.0;  // -1 to 1 by 0.01
+            strategy.TrailStopMultiplier = random.Next(2, 21);  // 2 to 20 by 1
+            strategy.ProfitTargetMultiplier = random.Next(2, 21);  // 2 to 20 by 1
+        }
+    }
+
+
+    private static bool CheckEntryConditions(Strategy strategy, Dictionary<string, double> indicators)
+    {
+        bool indicatorsExist = indicators.ContainsKey(strategy.CciIndicator1) &&
+                               indicators.ContainsKey(strategy.CciIndicator2) &&
+                               indicators.ContainsKey(strategy.MacdIndicator1Line) &&
+                               indicators.ContainsKey(strategy.MacdIndicator2Line);
+
+        if (!indicatorsExist) return false;
+
+        bool cci1Condition = EvaluateCondition(indicators[strategy.CciIndicator1], strategy.Cci1Threshold, strategy.Cci1Operator);
+        bool cci2Condition = EvaluateCondition(indicators[strategy.CciIndicator2], strategy.Cci2Threshold, strategy.Cci2Operator);
+        bool macd1Condition = EvaluateCondition(indicators[strategy.MacdIndicator1Line], strategy.Macd1Threshold, strategy.Macd1Operator);
+        bool macd2Condition = EvaluateCondition(indicators[strategy.MacdIndicator2Line], strategy.Macd2Threshold, strategy.Macd2Operator);
+
+        return cci1Condition && cci2Condition && macd1Condition && macd2Condition;
+    }
+
+    private static bool EvaluateCondition(double indicatorValue, double threshold, string op)
+    {
+        return op switch
+        {
+            ">" => indicatorValue > threshold,
+            "<" => indicatorValue < threshold,
+            ">=" => indicatorValue >= threshold,
+            "<=" => indicatorValue <= threshold,
+            "==" => indicatorValue == threshold,
+            "!=" => indicatorValue != threshold,
+            _ => throw new ArgumentException($"Invalid operator: {op}")
+        };
+    }
+
+
+    private static bool CheckExitConditions(double currentPrice, double trailStop, double targetProfit, string positionType)
+    {
+        Console.WriteLine($"\n=== EXIT CHECK ===");
+        Console.WriteLine($"Current Price: ${currentPrice:F2}");
+        Console.WriteLine($"Trail Stop: ${trailStop:F2}");
+        Console.WriteLine($"Target: ${targetProfit:F2}");
+        Console.WriteLine($"Position: {positionType}");
+
+        bool exitTriggered = false;
+
+        if (positionType == "Long")
+        {
+            if (currentPrice <= trailStop)
+            {
+                Console.WriteLine("Long position stopped out");
+                exitTriggered = true;
+            }
+            else if (currentPrice >= targetProfit)
+            {
+                Console.WriteLine("Long position target reached");
+                exitTriggered = true;
+            }
+        }
+        else // Short position
+        {
+            if (currentPrice >= trailStop)
+            {
+                Console.WriteLine("Short position stopped out");
+                exitTriggered = true;
+            }
+            else if (currentPrice <= targetProfit)
+            {
+                Console.WriteLine("Short position target reached");
+                exitTriggered = true;
+            }
+        }
+
+        if (exitTriggered)
+        {
+            Console.WriteLine($"Exit Price: ${currentPrice:F2}");
+        }
+
+        return exitTriggered;
+    }
+
+
+
+
+
+
+
+    private static void ManageExits(
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades,
+        Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> closedTrades,
+        DateTime currentTime,
+        double currentPrice,
+        double atrValue,
+        ref bool tradeOpen)
+    {
+        if (!openTrades.Any()) return;  // Early exit if no open trades
+
+        Console.WriteLine($"\n=== Trade Status at {currentTime} ===");
+        Console.WriteLine($"Open Trades Count: {openTrades.Count}");
+        Console.WriteLine($"Current Market Price: ${currentPrice:F2}");
+
+        foreach (var trade in openTrades.ToList())
+        {
+            var (entryPrice, positionType, currentTrailStop, targetProfit) = trade.Value;
+
+            Console.WriteLine($"\nMonitoring Trade Entered at: {trade.Key}");
+            Console.WriteLine($"Entry Price: ${entryPrice:F2}");
+            Console.WriteLine($"Current Trail Stop: ${currentTrailStop:F2}");
+            Console.WriteLine($"Target: ${targetProfit:F2}");
+            Console.WriteLine($"Current P/L: ${currentPrice - entryPrice:F2}");
+
+            // Update trailing stop
+            double newTrailStop = currentPrice - (atrValue * 2.0);
+            if (newTrailStop > currentTrailStop)
+            {
+                openTrades[trade.Key] = (entryPrice, positionType, newTrailStop, targetProfit);
+                Console.WriteLine($"Trail Stop Updated to: ${newTrailStop:F2}");
+            }
+
+            // Check exit conditions with detailed logging
+            if (currentPrice >= targetProfit)
+            {
+                Console.WriteLine("EXIT: Target Price Hit!");
+                ClosePosition(trade.Key, currentTime, entryPrice, currentPrice, positionType, closedTrades, openTrades, "target");
+                tradeOpen = false;
+            }
+            else if (currentPrice <= currentTrailStop)
+            {
+                Console.WriteLine("EXIT: Trailing Stop Hit!");
+                ClosePosition(trade.Key, currentTime, entryPrice, currentPrice, positionType, closedTrades, openTrades, "stop");
+                tradeOpen = false;
+            }
+            else if (currentTime.TimeOfDay >= new TimeSpan(15, 55, 0))
+            {
+                Console.WriteLine("EXIT: Market Close!");
+                ClosePosition(trade.Key, currentTime, entryPrice, currentPrice, positionType, closedTrades, openTrades, "close");
+                tradeOpen = false;
+            }
+        }
+    }
+
+
+
+    private static void ClosePosition(
+        DateTime tradeKey,
+        DateTime currentTime,
+        double entryPrice,
+        double exitPrice,
+        string positionType,
+        Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> closedTrades,
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades,
+        string exitReason)
+    {
+        double profitLoss = exitPrice - entryPrice;
+        closedTrades.Add(currentTime, (entryPrice, exitPrice, positionType));
+        openTrades.Remove(tradeKey);
+
+        LogTradeExit(exitReason, exitPrice, profitLoss);
+    }
+
+    private static void LogTradeUpdate(string message, double value)
+    {
+        Console.WriteLine($"{message}: ${value:F2}");
+    }
+
+    private static void LogTradeExit(string exitReason, double exitPrice, double profitLoss)
+    {
+        Console.WriteLine($"Trade closed at {exitReason}: ${exitPrice:F2}");
+        Console.WriteLine($"Profit/Loss: ${profitLoss:F2}");
+    }
+
+
+
+    private static double CalculateResults(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades)
+    {
+        if (!trades.Any())
+        {
+            Console.WriteLine("\n=== BACKTEST RESULTS ===");
+            Console.WriteLine("No completed trades to analyze");
+            Console.WriteLine("Total Profit: $0.00");
+            return 0;
+        }
+
+        double totalProfit = 0;
+        var dailyProfits = new Dictionary<DateTime, double>();
+        var weeklyProfits = new Dictionary<int, double>();
+        var monthlyProfits = new Dictionary<string, double>();
+
+        foreach (var trade in trades)
+        {
+            DateTime entryDate = trade.Key;
+            double profit = trade.Value.PositionType == "Long" ?
+                trade.Value.ExitPrice - trade.Value.EntryPrice :
+                trade.Value.EntryPrice - trade.Value.ExitPrice;
+
+            totalProfit += profit;
+
+            var date = entryDate.Date;
+            dailyProfits.TryAdd(date, 0);
+            dailyProfits[date] += profit;
+
+            int weekOfYear = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(
+                entryDate, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            weeklyProfits.TryAdd(weekOfYear, 0);
+            weeklyProfits[weekOfYear] += profit;
+
+            string monthYear = entryDate.ToString("yyyy-MM");
+            monthlyProfits.TryAdd(monthYear, 0);
+            monthlyProfits[monthYear] += profit;
+        }
+
+        // Print results safely with null checks
+        Console.WriteLine("\n=== BACKTEST RESULTS ===");
+        Console.WriteLine($"Total Profit: ${totalProfit:F2}");
+
+        if (dailyProfits.Any())
+        {
+            Console.WriteLine("\nDaily Profits:");
+            foreach (var dp in dailyProfits.OrderBy(x => x.Key))
+            {
+                Console.WriteLine($"{dp.Key:yyyy-MM-dd}: ${dp.Value:F2}");
+            }
+        }
+
+        if (weeklyProfits.Any())
+        {
+            Console.WriteLine("\nWeekly Profits:");
+            foreach (var wp in weeklyProfits.OrderBy(x => x.Key))
+            {
+                Console.WriteLine($"Week {wp.Key}: ${wp.Value:F2}");
+            }
+        }
+
+        if (monthlyProfits.Any())
+        {
+            Console.WriteLine("\nMonthly Profits:");
+            foreach (var mp in monthlyProfits.OrderBy(x => x.Key))
+            {
+                Console.WriteLine($"{mp.Key}: ${mp.Value:F2}");
+            }
+        }
+
+        return totalProfit;
+    }
+
+    private static bool useDefaults;
+private static void GenerateSummary(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades, DefaultSettings settings)
+{
+    if (!trades.Any())
+    {
+        Console.WriteLine("Backtest completed with no trades.");
+        return;
+    }
+
+    // Calculate all metrics
+    var metrics = CalculateTradeMetrics(trades);
+    var timeAnalysis = PerformTimeAnalysis(trades);
+
+    // Write to both console and file
+    WriteDetailedSummary(metrics, timeAnalysis, settings);
+}
+
+private static TradeMetrics CalculateTradeMetrics(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades)
+{
+    var profits = trades.Select(t => t.Value.PositionType == "Long" ?
+        t.Value.ExitPrice - t.Value.EntryPrice :
+        t.Value.EntryPrice - t.Value.ExitPrice).ToList();
+
+    return new TradeMetrics
+    {
+        TotalTrades = trades.Count,
+        WinningTrades = profits.Count(p => p > 0),
+        LosingTrades = profits.Count(p => p <= 0),
+        WinRate = (double)profits.Count(p => p > 0) / trades.Count * 100,
+        TotalProfit = profits.Sum(),
+        AverageProfit = profits.Average(),
+        MaxProfit = profits.Max(),
+        MaxLoss = profits.Min(),
+        ProfitFactor = profits.Where(p => p > 0).Sum() / Math.Abs(profits.Where(p => p < 0).Sum()),
+        MaxWinStreak = CalculateMaxStreak(profits, true),
+        MaxLoseStreak = CalculateMaxStreak(profits, false)
+    };
+}
+
+private static void WriteDetailedSummary(TradeMetrics metrics, TimeAnalysis timeAnalysis, DefaultSettings settings)
+{
+    using (StreamWriter writer = new StreamWriter(logPath, true))
+    {
+        var summary = new StringBuilder();
+        summary.AppendLine("\n=== TRADING PERFORMANCE SUMMARY ===");
+        summary.AppendLine($"Total Trades: {metrics.TotalTrades}");
+        summary.AppendLine($"Winning/Losing: {metrics.WinningTrades}/{metrics.LosingTrades}");
+        summary.AppendLine($"Win Rate: {metrics.WinRate:F2}%");
+        summary.AppendLine($"Total Profit: ${metrics.TotalProfit:F2}");
+        summary.AppendLine($"Average Profit/Trade: ${metrics.AverageProfit:F2}");
+        summary.AppendLine($"Best Trade: ${metrics.MaxProfit:F2}");
+        summary.AppendLine($"Worst Trade: ${metrics.MaxLoss:F2}");
+        summary.AppendLine($"Profit Factor: {metrics.ProfitFactor:F2}");
+        summary.AppendLine($"Max Win/Loss Streak: {metrics.MaxWinStreak}/{metrics.MaxLoseStreak}");
+
+        // Add time-based analysis
+        summary.AppendLine("\n=== TIME ANALYSIS ===");
+        foreach (var period in timeAnalysis.GetSummary())
+        {
+            summary.AppendLine(period);
+        }
+
+        // Add strategy settings
+        summary.AppendLine("\n=== STRATEGY CONFIGURATION ===");
+        summary.AppendLine($"ATR: {settings.AboveEmaLong1.AtrIndicator}");
+        summary.AppendLine($"CCI: {settings.AboveEmaLong1.CciIndicator1}, {settings.AboveEmaLong1.CciIndicator2}");
+        summary.AppendLine($"MACD: {settings.AboveEmaLong1.MacdIndicator1Line}, {settings.AboveEmaLong1.MacdIndicator2Line}");
+
+        // Write to both console and file
+        Console.WriteLine(summary.ToString());
+        writer.Write(summary.ToString());
+    }
+}
+
+
+
+    private static void SaveResultsToFile(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades, DefaultSettings settings, bool isRandom)
+    {
+        string logFilename = isRandom ? "randomtradelog.csv" : "defaulttradelog.csv";
+
+        using (StreamWriter writer = new StreamWriter(logFilename))
+        {
+            // Write headers
+            writer.WriteLine("DateTime,PositionType,EntryPrice,ExitPrice,Profit");
+
+            // Write trades
+            foreach (var trade in trades.OrderBy(t => t.Key))
+            {
+                double profit = trade.Value.PositionType == "Long" ?
+                    trade.Value.ExitPrice - trade.Value.EntryPrice :
+                    trade.Value.EntryPrice - trade.Value.ExitPrice;
+                writer.WriteLine($"{trade.Key:yyyy-MM-dd HH:mm:ss},{trade.Value.PositionType}," +
+                                 $"{trade.Value.EntryPrice:F2},{trade.Value.ExitPrice:F2},{profit:F2}");
+            }
+        }
+
+        // Append summary to the file
+        GenerateSummary(trades, settings);
+
+    }
+
+    private static void PrintStrategySummary(DefaultSettings settings, StreamWriter writer)
+    {
+        var strategies = new Dictionary<string, Strategy>
+    {
+        { "AboveEmaLong1", settings.AboveEmaLong1 },
+        { "AboveEmaLong2", settings.AboveEmaLong2 },
+        { "AboveEmaShort1", settings.AboveEmaShort1 },
+        { "AboveEmaShort2", settings.AboveEmaShort2 },
+        { "BelowEmaLong1", settings.BelowEmaLong1 },
+        { "BelowEmaLong2", settings.BelowEmaLong2 },
+        { "BelowEmaShort1", settings.BelowEmaShort1 },
+        { "BelowEmaShort2", settings.BelowEmaShort2 }
+    };
+
+        foreach (var strategyPair in strategies)
+        {
+            var strategy = strategyPair.Value;
+            writer.WriteLine($"\nStrategy: {strategyPair.Key}");
+
+            // CCI Indicators
+            writer.WriteLine("  CCI Indicators:");
+            writer.WriteLine($"    CCI-1: {strategy.CciIndicator1} {strategy.Cci1Operator} {strategy.Cci1Threshold}");
+            writer.WriteLine($"    CCI-2: {strategy.CciIndicator2} {strategy.Cci2Operator} {strategy.Cci2Threshold}");
+
+            // MACD Indicators
+            writer.WriteLine("  MACD Indicators:");
+            writer.WriteLine($"    MACD-1: {strategy.MacdIndicator1Line} {strategy.Macd1Operator} {strategy.Macd1Threshold}");
+            writer.WriteLine($"    MACD-2: {strategy.MacdIndicator2Line} {strategy.Macd2Operator} {strategy.Macd2Threshold}");
+
+            // Risk Management
+            writer.WriteLine("  Risk Management:");
+            writer.WriteLine($"    ATR: {strategy.AtrIndicator}");
+            writer.WriteLine($"    Trail Stop: {strategy.TrailStopMultiplier}x ATR");
+            writer.WriteLine($"    Profit Target: {strategy.ProfitTargetMultiplier}x ATR");
+        }
+    }
+
+    private static void SaveOptimizationResults(double bestProfit, DefaultSettings settings, bool isDefault = true)
+    {
+        string filePath = "OptimizationResults.txt";
+        string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+        if (isDefault || (!isDefault && Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape))
+        {
+            using (StreamWriter writer = new StreamWriter(filePath, true))
+            {
+                writer.WriteLine("=================================================");
+                writer.WriteLine($"{(isDefault ? "Default" : "Optimization")} Results - {timestamp}");
+                writer.WriteLine("=================================================");
+                writer.WriteLine($"Best Profit: ${bestProfit:F2}");
+
+                var strategies = new Dictionary<string, Strategy>
+            {
+                { "AboveEmaLong1", settings.AboveEmaLong1 },
+                { "AboveEmaLong2", settings.AboveEmaLong2 },
+                { "AboveEmaShort1", settings.AboveEmaShort1 },
+                { "AboveEmaShort2", settings.AboveEmaShort2 },
+                { "BelowEmaLong1", settings.BelowEmaLong1 },
+                { "BelowEmaLong2", settings.BelowEmaLong2 },
+                { "BelowEmaShort1", settings.BelowEmaShort1 },
+                { "BelowEmaShort2", settings.BelowEmaShort2 }
+            };
+
+                foreach (var strategyPair in strategies)
+                {
+                    writer.WriteLine("\n-------------------------------------------------");
+                    writer.WriteLine($"Strategy: {strategyPair.Key}");
+                    writer.WriteLine("-------------------------------------------------");
+
+                    var strategy = strategyPair.Value;
+
+                    // CCI Settings
+                    writer.WriteLine("\nCCI Settings:");
+                    writer.WriteLine($"  Indicator 1: {strategy.CciIndicator1} {strategy.Cci1Operator} {strategy.Cci1Threshold}");
+                    writer.WriteLine($"  Indicator 2: {strategy.CciIndicator2} {strategy.Cci2Operator} {strategy.Cci2Threshold}");
+
+                    // MACD Settings
+                    writer.WriteLine("\nMACD Settings:");
+                    writer.WriteLine($"  Indicator 1: {strategy.MacdIndicator1Line} {strategy.Macd1Operator} {strategy.Macd1Threshold}");
+                    writer.WriteLine($"  Indicator 2: {strategy.MacdIndicator2Line} {strategy.Macd2Operator} {strategy.Macd2Threshold}");
+
+                    // Risk Management Settings
+                    writer.WriteLine("\nRisk Management:");
+                    writer.WriteLine($"  ATR Indicator: {strategy.AtrIndicator}");
+                    writer.WriteLine($"  Trail Stop Multiplier: {strategy.TrailStopMultiplier}x");
+                    writer.WriteLine($"  Profit Target Multiplier: {strategy.ProfitTargetMultiplier}x");
+
+                    // Complete Condition String
+                    writer.WriteLine("\nComplete Strategy Condition:");
+                    writer.WriteLine($"  IF ({strategy.CciIndicator1} {strategy.Cci1Operator} {strategy.Cci1Threshold} AND");
+                    writer.WriteLine($"      {strategy.CciIndicator2} {strategy.Cci2Operator} {strategy.Cci2Threshold} AND");
+                    writer.WriteLine($"      {strategy.MacdIndicator1Line} {strategy.Macd1Operator} {strategy.Macd1Threshold} AND");
+                    writer.WriteLine($"      {strategy.MacdIndicator2Line} {strategy.Macd2Operator} {strategy.Macd2Threshold})");
+                    writer.WriteLine($"  THEN ENTER {strategyPair.Key}");
+                }
+
+                writer.WriteLine("\n=================================================\n");
+            }
+        }
+    }
+    private static void SaveDefaultValuesResults(double result, DefaultSettings settings)
+    {
+        var sb = new StringBuilder();
+        string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+        sb.AppendLine("=================================================")
+          .AppendLine($"Strategy Results - {timestamp}")
+          .AppendLine("=================================================")
+          .AppendLine($"Total Net Profit: ${result:F2}\n");
+
+        var strategies = new Dictionary<string, Strategy>
+    {
+        { "AboveEmaLong1", settings.AboveEmaLong1 },
+        { "AboveEmaLong2", settings.AboveEmaLong2 },
+        { "AboveEmaShort1", settings.AboveEmaShort1 },
+        { "AboveEmaShort2", settings.AboveEmaShort2 },
+        { "BelowEmaLong1", settings.BelowEmaLong1 },
+        { "BelowEmaLong2", settings.BelowEmaLong2 },
+        { "BelowEmaShort1", settings.BelowEmaShort1 },
+        { "BelowEmaShort2", settings.BelowEmaShort2 }
+    };
+
+        foreach (var (name, strategy) in strategies)
+        {
+            sb.AppendLine($"\nStrategy: {name}")
+              .AppendLine("-------------------------------------------")
+              .AppendLine("\nCCI Configuration:")
+              .AppendLine($"CCI1: {strategy.CciIndicator1} {strategy.Cci1Operator} {strategy.Cci1Threshold}")
+              .AppendLine($"CCI2: {strategy.CciIndicator2} {strategy.Cci2Operator} {strategy.Cci2Threshold}")
+              .AppendLine("\nMACD Configuration:")
+              .AppendLine($"MACD1: {strategy.MacdIndicator1Line} {strategy.Macd1Operator} {strategy.Macd1Threshold}")
+              .AppendLine($"MACD2: {strategy.MacdIndicator2Line} {strategy.Macd2Operator} {strategy.Macd2Threshold}")
+              .AppendLine("\nRisk Parameters:")
+              .AppendLine($"ATR: {strategy.AtrIndicator}")
+              .AppendLine($"Trail Stop: {strategy.TrailStopMultiplier}x")
+              .AppendLine($"Profit Target: {strategy.ProfitTargetMultiplier}x")
+              .AppendLine("\nComplete Strategy Logic:")
+              .AppendLine($"IF ({strategy.CciIndicator1} {strategy.Cci1Operator} {strategy.Cci1Threshold} AND")
+              .AppendLine($"    {strategy.CciIndicator2} {strategy.Cci2Operator} {strategy.Cci2Threshold} AND")
+              .AppendLine($"    {strategy.MacdIndicator1Line} {strategy.Macd1Operator} {strategy.Macd1Threshold} AND")
+              .AppendLine($"    {strategy.MacdIndicator2Line} {strategy.Macd2Operator} {strategy.Macd2Threshold})")
+              .AppendLine($"THEN EXECUTE {name}\n");
+        }
+
+        sb.AppendLine("=================================================");
+
+        File.WriteAllText("DefaultValuesResults.txt", sb.ToString());
+    }
+
+
+}
+
+
+
+    public Strategy AboveEmaLong1 { get; set; }
+    public Strategy AboveEmaLong2 { get; set; }
+    public Strategy AboveEmaShort1 { get; set; }
+    public Strategy AboveEmaShort2 { get; set; }
+    public Strategy BelowEmaLong1 { get; set; }
+    public Strategy BelowEmaLong2 { get; set; }
+    public Strategy BelowEmaShort1 { get; set; }
+    public Strategy BelowEmaShort2 { get; set; }
+
+    public DefaultSettings()
+    {
+        AboveEmaLong1 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 0,
+            Cci2Threshold = 0,
+            Macd1Threshold = -5,
+            Macd2Threshold = -5,
+            Cci1Operator = ">",
+            Cci2Operator = ">",
+            Macd1Operator = ">",
+            Macd2Operator = ">",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+
+        AboveEmaLong2 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 0,
+            Cci2Threshold = 0,
+            Macd1Threshold = -5,
+            Macd2Threshold = -5,
+            Cci1Operator = ">",
+            Cci2Operator = ">",
+            Macd1Operator = ">",
+            Macd2Operator = ">",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+
+        AboveEmaShort1 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 0,
+            Cci2Threshold = 0,
+            Macd1Threshold = 5,
+            Macd2Threshold = 5,
+            Cci1Operator = "<",
+            Cci2Operator = "<",
+            Macd1Operator = "<",
+            Macd2Operator = "<",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+
+        AboveEmaShort2 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 0,
+            Cci2Threshold = 0,
+            Macd1Threshold = 5,
+            Macd2Threshold = 5,
+            Cci1Operator = "<",
+            Cci2Operator = "<",
+            Macd1Operator = "<",
+            Macd2Operator = "<",
+            TrailStopMultiplier = 5.0,
+            ProfitTargetMultiplier = 5.0
+        };
+
+        BelowEmaLong1 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 0,
+            Cci2Threshold = 0,
+            Macd1Threshold = -5,
+            Macd2Threshold = -5,
+            Cci1Operator = ">",
+            Cci2Operator = ">",
+            Macd1Operator = ">",
+            Macd2Operator = ">",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+
+        BelowEmaLong2 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 0,
+            Cci2Threshold = 0,
+            Macd1Threshold = -5,
+            Macd2Threshold = -5,
+            Cci1Operator = ">",
+            Cci2Operator = ">",
+            Macd1Operator = ">",
+            Macd2Operator = ">",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+
+        BelowEmaShort1 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 0,
+            Cci2Threshold = 0,
+            Macd1Threshold = 5,
+            Macd2Threshold = 5,
+            Cci1Operator = "<",
+            Cci2Operator = "<",
+            Macd1Operator = "<",
+            Macd2Operator = "<",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+
+        BelowEmaShort2 = new Strategy
+        {
+            CciIndicator1 = "CCI_55",
+            CciIndicator2 = "CCI_105",
+            MacdIndicator1Line = "MACD_11_25_9_line",
+            MacdIndicator2Line = "MACD_9_20_9_line",
+            AtrIndicator = "ATR_14",
+            Cci1Threshold = 0,
+            Cci2Threshold = 0,
+            Macd1Threshold = 5,
+            Macd2Threshold = 5,
+            Cci1Operator = "<",
+            Cci2Operator = "<",
+            Macd1Operator = "<",
+            Macd2Operator = "<",
+            TrailStopMultiplier = 20.0,
+            ProfitTargetMultiplier = 20.0
+        };
+    }
+}
+
+public class PriceData
+{
+    public DateTime DateTime { get; set; }
+    public double Open { get; set; }
+    public double High { get; set; }
+    public double Low { get; set; }
+    public double Close { get; set; }
+    public double Volume { get; set; }
+    private Dictionary<string, double> Indicators { get; set; } = new Dictionary<string, double>();
+
+    public double GetIndicator(string key)
+    {
+        return Indicators.ContainsKey(key) ? Indicators[key] : 0;
+    }
+
+    public void SetIndicator(string key, double value)
+    {
+        Indicators[key] = value;
+    }
+}
+
+
+public class SimpleDailyBacktest
+{
+    // Core tracking variables
+    private static DateTime _lastLogTime = DateTime.Now;
+    private static Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> closedTrades =
+        new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>();
+    private static Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> bestTrades =
+        new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>();
+
+    private static void ThrottledLog(string message, TimeSpan minInterval)
+    {
+        var now = DateTime.Now;
+        if (now - _lastLogTime >= minInterval)
+        {
+            Console.WriteLine(message);
+            _lastLogTime = now;
+        }
+    }
+
+    private static void MonitorOpenTrades(
+        DateTime currentTime,
+        double currentPrice,
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades)
+    {
+        var tradesToRemove = new List<DateTime>();
+
+        foreach (var trade in openTrades)
+        {
+            var entryTime = trade.Key;
+            var (entryPrice, positionType, trailStop, targetProfit) = trade.Value;
+
+            if (positionType == "Long")
+            {
+                if (currentPrice >= targetProfit)
+                {
+                    closedTrades.Add(currentTime, (entryPrice, currentPrice, positionType));
+                    tradesToRemove.Add(entryTime);
+                    ThrottledLog($"=== TRADE EXIT (TARGET) ===\nTime: {currentTime.ToString("HH:mm:ss")}\nExit Price: ${currentPrice:F2}\nProfit: ${(currentPrice - entryPrice):F2}", TimeSpan.FromSeconds(1));
+                }
+                else if (currentPrice <= trailStop)
+                {
+                    closedTrades.Add(currentTime, (entryPrice, currentPrice, positionType));
+                    tradesToRemove.Add(entryTime);
+                    ThrottledLog($"=== TRADE EXIT (STOP) ===\nTime: {currentTime.ToString("HH:mm:ss")}\nExit Price: ${currentPrice:F2}\nLoss: ${(currentPrice - entryPrice):F2}", TimeSpan.FromSeconds(1));
+                }
+            }
+            else if (positionType == "Short")
+            {
+                if (currentPrice <= targetProfit)
+                {
+                    closedTrades.Add(currentTime, (entryPrice, currentPrice, positionType));
+                    tradesToRemove.Add(entryTime);
+                    ThrottledLog($"=== TRADE EXIT (TARGET) ===\nTime: {currentTime.ToString("HH:mm:ss")}\nExit Price: ${currentPrice:F2}\nProfit: ${(entryPrice - currentPrice):F2}", TimeSpan.FromSeconds(1));
+                }
+                else if (currentPrice >= trailStop)
+                {
+                    closedTrades.Add(currentTime, (entryPrice, currentPrice, positionType));
+                    tradesToRemove.Add(entryTime);
+                    ThrottledLog($"=== TRADE EXIT (STOP) ===\nTime: {currentTime.ToString("HH:mm:ss")}\nExit Price: ${currentPrice:F2}\nLoss: ${(entryPrice - currentPrice):F2}", TimeSpan.FromSeconds(1));
+                }
+            }
+        }
+
+        foreach (var tradeTime in tradesToRemove)
+        {
+            openTrades.Remove(tradeTime);
+        }
+    }
+
+
+    private static Dictionary<string, double> CalculateIndicators(List<PriceData> data, int index, DefaultSettings settings)
+    {
+        var indicators = new Dictionary<string, double>();
+
+        // MACD Indicators (all combinations from 2_5_9 to 69_150_9)
+        for (int fast = 2; fast <= 69; fast += 2)
+        {
+            int slow = fast * 2 + 1;
+            if (slow > 150) break;
+
+            string macdKey = $"MACD_{fast}_{slow}_9_line";
+            string signalKey = $"MACD_{fast}_{slow}_9_signal";
+            string histKey = $"MACD_{fast}_{slow}_9_histogram";
+
+            indicators[macdKey] = data[index].GetIndicator($"MACD_{fast}_{slow}_9_line");
+            indicators[signalKey] = data[index].GetIndicator($"MACD_{fast}_{slow}_9_signal");
+            indicators[histKey] = data[index].GetIndicator($"MACD_{fast}_{slow}_9_histogram");
+        }
+
+        // CCI Indicators (5 to 295, step of 10)
+        for (int period = 5; period <= 295; period += 10)
+        {
+            string cciKey = $"CCI_{period}";
+            indicators[cciKey] = data[index].GetIndicator($"CCI_{period}");
+        }
+
+        // ATR Indicators (2 to 20, step of 2)
+        for (int period = 2; period <= 20; period += 2)
+        {
+            string atrKey = $"ATR_{period}";
+            indicators[atrKey] = data[index].GetIndicator($"ATR_{period}");
+        }
+
+        // SMA Indicators (2 to 40, step of 2)
+        for (int period = 2; period <= 40; period += 2)
+        {
+            string smaKey = $"SMA_{period}";
+            indicators[smaKey] = data[index].GetIndicator($"SMA_{period}");
+        }
+
+        // EMA 200
+        indicators["EMA200"] = data[index].GetIndicator("EMA200");
+
+        return indicators;
+    }
+
+
+
+
+
+
+    private static DefaultSettings CloneSettings(DefaultSettings original)
+    {
+        var clone = new DefaultSettings();
+        CopyStrategy(original.AboveEmaLong1, clone.AboveEmaLong1);
+        CopyStrategy(original.AboveEmaLong2, clone.AboveEmaLong2);
+        CopyStrategy(original.AboveEmaShort1, clone.AboveEmaShort1);
+        CopyStrategy(original.AboveEmaShort2, clone.AboveEmaShort2);
+        CopyStrategy(original.BelowEmaLong1, clone.BelowEmaLong1);
+        CopyStrategy(original.BelowEmaLong2, clone.BelowEmaLong2);
+        CopyStrategy(original.BelowEmaShort1, clone.BelowEmaShort1);
+        CopyStrategy(original.BelowEmaShort2, clone.BelowEmaShort2);
+        return clone;
+    }
+
+    private static void CopyStrategy(Strategy source, Strategy target)
+    {
+        target.CciIndicator1 = source.CciIndicator1;
+        target.CciIndicator2 = source.CciIndicator2;
+        target.MacdIndicator1Line = source.MacdIndicator1Line;
+        target.MacdIndicator2Line = source.MacdIndicator2Line;
+        target.AtrIndicator = source.AtrIndicator;
+        target.Cci1Threshold = source.Cci1Threshold;
+        target.Cci2Threshold = source.Cci2Threshold;
+        target.Macd1Threshold = source.Macd1Threshold;
+        target.Macd2Threshold = source.Macd2Threshold;
+        target.Cci1Operator = source.Cci1Operator;
+        target.Cci2Operator = source.Cci2Operator;
+        target.Macd1Operator = source.Macd1Operator;
+        target.Macd2Operator = source.Macd2Operator;
+        target.TrailStopMultiplier = source.TrailStopMultiplier;
+        target.ProfitTargetMultiplier = source.ProfitTargetMultiplier;
+    }
+
+
+    private static void PrintStrategySummary(DefaultSettings settings)
+    {
+        Console.WriteLine("\n=== STRATEGY CONFIGURATION SUMMARY ===");
+
+        void PrintStrategyDetails(string name, Strategy strategy)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\n{name} Strategy Configuration:");
+            Console.ResetColor();
+
+            // CCI Settings
+            Console.WriteLine("  CCI Settings:");
+            Console.WriteLine($"    Signal 1: {strategy.CciIndicator1} {strategy.Cci1Operator} {strategy.Cci1Threshold}");
+            Console.WriteLine($"    Signal 2: {strategy.CciIndicator2} {strategy.Cci2Operator} {strategy.Cci2Threshold}");
+
+            // MACD Settings
+            Console.WriteLine("  MACD Settings:");
+            Console.WriteLine($"    Signal 1: {strategy.MacdIndicator1Line} {strategy.Macd1Operator} {strategy.Macd1Threshold}");
+            Console.WriteLine($"    Signal 2: {strategy.MacdIndicator2Line} {strategy.Macd2Operator} {strategy.Macd2Threshold}");
+
+            // Risk Management
+            Console.WriteLine("  Risk Management:");
+            Console.WriteLine($"    ATR: {strategy.AtrIndicator}");
+            Console.WriteLine($"    Trail Stop: {strategy.TrailStopMultiplier}x ATR");
+            Console.WriteLine($"    Profit Target: {strategy.ProfitTargetMultiplier}x ATR");
+        }
+
+        var strategies = new[]
+        {
+        ("Above EMA Long 1", settings.AboveEmaLong1),
+        ("Above EMA Long 2", settings.AboveEmaLong2),
+        ("Above EMA Short 1", settings.AboveEmaShort1),
+        ("Above EMA Short 2", settings.AboveEmaShort2),
+        ("Below EMA Long 1", settings.BelowEmaLong1),
+        ("Below EMA Long 2", settings.BelowEmaLong2),
+        ("Below EMA Short 1", settings.BelowEmaShort1),
+        ("Below EMA Short 2", settings.BelowEmaShort2)
+    };
+
+        foreach (var (name, strategy) in strategies)
+        {
+            PrintStrategyDetails(name, strategy);
+        }
+    }
+
+    public static void Main()
+    {
+        try
+        {
+            Console.WriteLine("=== BACKTEST SYSTEM INITIALIZATION ===");
+            var defaults = new DefaultSettings();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("\nUse default settings? (YES/NO): ");
+            Console.ResetColor();
+            useDefaults = Console.ReadLine()?.Trim().ToUpper() == "YES";
+
+            if (useDefaults)
+            {
+                PrintStrategySummary(defaults);
+            }
+
+            Console.WriteLine("\nLoading data file...");
+            string[] headers = File.ReadLines("BacktestData.csv").First().Split(',');
+            var data = LoadData("BacktestData.csv", headers, defaults, useDefaults);
+
+
+            Console.WriteLine("\nInitiating backtest...");
+            RunBacktest(useDefaults, defaults, headers, data);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nBacktest completed successfully!");
+            Console.ResetColor();
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
+        }
+        catch (Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"\nError: {ex.Message}");
+            Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+            Console.ResetColor();
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
+        }
+    }
+
+
+    private static List<Dictionary<string, double>> LoadData(string filePath, string[] headers, DefaultSettings settings, bool useDefaults)
+    {
+        var data = new List<Dictionary<string, double>>();
+
+        if (useDefaults)
+        {
+            var requiredIndicators = new HashSet<string>
+        {
+            // AboveEmaLong1
+            settings.AboveEmaLong1.AtrIndicator,
+            settings.AboveEmaLong1.CciIndicator1,
+            settings.AboveEmaLong1.CciIndicator2,
+            settings.AboveEmaLong1.MacdIndicator1Line,
+            settings.AboveEmaLong1.MacdIndicator2Line,
+            
+            // AboveEmaLong2
+            settings.AboveEmaLong2.AtrIndicator,
+            settings.AboveEmaLong2.CciIndicator1,
+            settings.AboveEmaLong2.CciIndicator2,
+            settings.AboveEmaLong2.MacdIndicator1Line,
+            settings.AboveEmaLong2.MacdIndicator2Line,
+            
+            // AboveEmaShort1
+            settings.AboveEmaShort1.AtrIndicator,
+            settings.AboveEmaShort1.CciIndicator1,
+            settings.AboveEmaShort1.CciIndicator2,
+            settings.AboveEmaShort1.MacdIndicator1Line,
+            settings.AboveEmaShort1.MacdIndicator2Line,
+            
+            // AboveEmaShort2
+            settings.AboveEmaShort2.AtrIndicator,
+            settings.AboveEmaShort2.CciIndicator1,
+            settings.AboveEmaShort2.CciIndicator2,
+            settings.AboveEmaShort2.MacdIndicator1Line,
+            settings.AboveEmaShort2.MacdIndicator2Line,
+            
+            // BelowEmaLong1
+            settings.BelowEmaLong1.AtrIndicator,
+            settings.BelowEmaLong1.CciIndicator1,
+            settings.BelowEmaLong1.CciIndicator2,
+            settings.BelowEmaLong1.MacdIndicator1Line,
+            settings.BelowEmaLong1.MacdIndicator2Line,
+            
+            // BelowEmaLong2
+            settings.BelowEmaLong2.AtrIndicator,
+            settings.BelowEmaLong2.CciIndicator1,
+            settings.BelowEmaLong2.CciIndicator2,
+            settings.BelowEmaLong2.MacdIndicator1Line,
+            settings.BelowEmaLong2.MacdIndicator2Line,
+            
+            // BelowEmaShort1
+            settings.BelowEmaShort1.AtrIndicator,
+            settings.BelowEmaShort1.CciIndicator1,
+            settings.BelowEmaShort1.CciIndicator2,
+            settings.BelowEmaShort1.MacdIndicator1Line,
+            settings.BelowEmaShort1.MacdIndicator2Line,
+            
+            // BelowEmaShort2
+            settings.BelowEmaShort2.AtrIndicator,
+            settings.BelowEmaShort2.CciIndicator1,
+            settings.BelowEmaShort2.CciIndicator2,
+            settings.BelowEmaShort2.MacdIndicator1Line,
+            settings.BelowEmaShort2.MacdIndicator2Line,
+
+            "EMA200"
+        };
+
+            Console.WriteLine("\n=== Data Loading Diagnostics ===");
+            Console.WriteLine("Available indicators in file:");
+            Console.WriteLine(string.Join(", ", headers));
+
+            Console.WriteLine("\nValidating required indicators:");
+            foreach (var indicator in requiredIndicators)
+            {
+                var exists = headers.Contains(indicator);
+                Console.WriteLine($"- {indicator}: {(exists ? "Found" : "Missing")}");
+            }
+        }
+
+        try
+        {
+            var lines = File.ReadAllLines(filePath);
+            Console.WriteLine($"\nProcessing {lines.Length - 1} data rows...");
+
+            foreach (var line in lines.Skip(1))
+            {
+                var values = line.Split(',');
+                var indicators = new Dictionary<string, double>();
+
+                for (int i = 0; i < headers.Length; i++)
+                {
+                    string header = headers[i];
+                    if (header == "DateTime")
+                    {
+                        indicators[header] = DateTime.Parse(values[i], CultureInfo.InvariantCulture).ToOADate();
+                        continue;
+                    }
+
+                    if (double.TryParse(values[i], NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
+                    {
+                        indicators[header] = result;
+                    }
+                }
+
+                data.Add(indicators);
+
+                if (data.Count == 1)
+                {
+                    Console.WriteLine("\nFirst row indicator values:");
+                    foreach (var kvp in indicators.OrderBy(x => x.Key))
+                    {
+                        Console.WriteLine($"- {kvp.Key}: {kvp.Value}");
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"\nData Loading Error:");
+            Console.WriteLine($"Type: {ex.GetType().Name}");
+            Console.WriteLine($"Message: {ex.Message}");
+            Console.WriteLine($"Stack: {ex.StackTrace}");
+        }
+
+        return data;
+    }
+
+
+
+
+    private static double bestProfit = double.MinValue;
+    private static DefaultSettings bestSettings = null;
+    private static int optimizationCount = 0;
+    private static string logPath = useDefaults ? "defaulttradelog.csv" : "randomtradelog.csv";
+
+    private static void RunBacktest(bool useDefaults, DefaultSettings defaults, string[] headers, List<Dictionary<string, double>> data)
+    {
+        try
+        {
+            Console.WriteLine("=== Starting Backtest ===");
+            WriteTradeLogHeader(logPath);  // Initialize trade log with headers
+
+            if (useDefaults)
+            {
+                Console.WriteLine("Running single pass with default settings...");
+                var currentTrades = new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>();
+                double result = PerformBacktest(data, defaults, true);
+                SaveDefaultValuesResults(result, defaults);
+                GenerateSummary(currentTrades, defaults);
+                return;
+            }
+
+            // Optimization mode
+            int testsCompleted = 0;
+            const int PROGRESS_INTERVAL = 100;
+            Console.WriteLine("Starting optimization mode. Press any key to stop...");
+
+            while (!Console.KeyAvailable)
+            {
+                RandomizeStrategySettings(defaults);
+                var currentTrades = new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>();
+                double result = PerformBacktest(data, defaults, false);
+
+                testsCompleted++;
+
+                if (result > bestProfit)
+                {
+                    bestProfit = result;
+                    bestSettings = CloneSettings(defaults);
+                    bestTrades = new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>(currentTrades);
+
+                    // Log best trades when new best strategy is found
+                    foreach (var trade in bestTrades)
+                    {
+                        LogTrade(logPath,
+                            trade.Key,                              // Entry time 
+                            trade.Key,                              // Initial exit time (same as entry)
+                            trade.Value.EntryPrice,                 // Entry price
+                            trade.Value.EntryPrice,                 // Initial exit price (same as entry)
+                            trade.Value.PositionType,               // Direction
+                            0.0,                                    // Initial P/L
+                            true);                                  // Is entry
+
+                        // Log exit details
+                        LogTrade(logPath,
+                            trade.Key,                              // Entry time
+                            trade.Key.AddMinutes(1),                // Actual exit time
+                            trade.Value.EntryPrice,                 // Entry price
+                            trade.Value.ExitPrice,                  // Exit price
+                            trade.Value.PositionType,               // Direction
+                            trade.Value.ExitPrice - trade.Value.EntryPrice,  // Actual P/L
+                            false);                                 // Is exit
+                    }
+
+                    Console.WriteLine($"\nNew Best Strategy Found!");
+                    Console.WriteLine($"Profit: ${bestProfit:F2}");
+                    DisplayQuickStats(bestTrades, bestSettings);
+                }
+
+                if (testsCompleted % PROGRESS_INTERVAL == 0)
+                {
+                    Console.WriteLine($"\rTests completed: {testsCompleted} | Current Best: ${bestProfit:F2}");
+                }
+            }
+
+            if (bestSettings != null)
+            {
+                SaveOptimizationResults(bestProfit, bestSettings);
+                GenerateSummary(bestTrades, bestSettings);
+                ExportBestTrades(bestTrades);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in RunBacktest: {ex.Message}");
+        }
+    }
+
+    private static void DisplayQuickStats(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades, DefaultSettings settings)
+    {
+        Console.WriteLine($"Total Trades: {trades.Count}");
+        Console.WriteLine($"Settings: Trail Stop: {settings.AboveEmaLong1.TrailStopMultiplier:F2} | Target: {settings.AboveEmaLong1.ProfitTargetMultiplier:F2}");
+    }
+
+    // For default mode trades
+    private static void ExportTrades(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades)
+    {
+        var csv = new StringBuilder();
+        csv.AppendLine("EntryTime,ExitTime,EntryPrice,ExitPrice,PositionType,Profit");
+
+        foreach (var trade in trades)
+        {
+            var entryTime = trade.Key;
+            var (entryPrice, exitPrice, positionType) = trade.Value;
+            var profit = positionType == "Long" ? exitPrice - entryPrice : entryPrice - exitPrice;
+
+            csv.AppendLine($"{entryTime},{trade.Key},{entryPrice:F2},{exitPrice:F2},{positionType},{profit:F2}");
+        }
+
+        File.WriteAllText("trades.csv", csv.ToString());
+    }
+
+    // For optimization mode best trades
+    private static void ExportBestTrades(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades)
+    {
+        using (StreamWriter writer = new StreamWriter("BestTrades.csv"))
+        {
+            writer.WriteLine("Date,EntryPrice,ExitPrice,Type,Profit");
+            foreach (var trade in trades)
+            {
+                double profit = trade.Value.ExitPrice - trade.Value.EntryPrice;
+                if (trade.Value.PositionType == "Short") profit = -profit;
+                writer.WriteLine($"{trade.Key:yyyy-MM-dd HH:mm:ss},{trade.Value.EntryPrice:F2},{trade.Value.ExitPrice:F2},{trade.Value.PositionType},{profit:F2}");
+            }
+        }
+    }
+
+
+    private static double PerformBacktest(List<Dictionary<string, double>> data, DefaultSettings settings, bool useDefaults)
+    {
+        var openTrades = new Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)>();
+        var closedTrades = new Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)>();
+        bool tradeOpen = false;
+        double totalProfit = 0;
+
+        if (!FastMode)
+        {
+            Console.WriteLine("\n=== BACKTEST INITIALIZATION ===");
+            Console.WriteLine($"Data points to process: {data.Count}");
+            Console.WriteLine($"Starting time: {DateTime.Now}");
+            Console.WriteLine("=== INDICATOR CONFIGURATION ===");
+            Console.WriteLine($"ATR Indicator: {settings.AboveEmaLong1.AtrIndicator}");
+            Console.WriteLine($"CCI Indicators: {settings.AboveEmaLong1.CciIndicator1}, {settings.AboveEmaLong1.CciIndicator2}");
+            Console.WriteLine($"MACD Lines: {settings.AboveEmaLong1.MacdIndicator1Line}, {settings.AboveEmaLong1.MacdIndicator2Line}\n");
+        }
+
+        for (int i = 0; i < data.Count; i++)
+        {
+            var line = data[i];
+            var dateTime = DateTime.FromOADate(line["DateTime"]);
+            var closePrice = line["Close"];
+            var atrValue = line[settings.AboveEmaLong1.AtrIndicator];
+
+            if (tradeOpen && openTrades.Any())
+            {
+                ProcessAndManageTrades(dateTime, closePrice, atrValue, openTrades, closedTrades, ref tradeOpen);
+            }
+
+            var requiredIndicators = new HashSet<string>
+        {
+            settings.AboveEmaLong1.CciIndicator1,
+            settings.AboveEmaLong1.CciIndicator2,
+            settings.AboveEmaLong1.MacdIndicator1Line,
+            settings.AboveEmaLong1.MacdIndicator2Line,
+            "EMA200"
+        };
+
+            if (requiredIndicators.Any(indicator => !line.ContainsKey(indicator)))
+            {
+                if (!FastMode)
+                {
+                    Console.WriteLine($"Missing indicators at {dateTime:yyyy-MM-dd} - skipping bar");
+                }
+                continue;
+            }
+
+            var indicators = new Dictionary<string, double>
+        {
+            { settings.AboveEmaLong1.CciIndicator1, line[settings.AboveEmaLong1.CciIndicator1] },
+            { settings.AboveEmaLong1.CciIndicator2, line[settings.AboveEmaLong1.CciIndicator2] },
+            { settings.AboveEmaLong1.MacdIndicator1Line, line[settings.AboveEmaLong1.MacdIndicator1Line] },
+            { settings.AboveEmaLong1.MacdIndicator2Line, line[settings.AboveEmaLong1.MacdIndicator2Line] },
+            { "EMA200", line["EMA200"] }
+        };
+
+            if (indicators["EMA200"] < closePrice)
+            {
+                if (!tradeOpen)
+                {
+                    tradeOpen = ExecuteAboveEmaStrategies(settings, dateTime, closePrice, atrValue, indicators, openTrades);
+                }
+            }
+            else
+            {
+                if (!tradeOpen)
+                {
+                    tradeOpen = ExecuteBelowEmaStrategies(settings, dateTime, closePrice, atrValue, indicators, openTrades);
+                }
+            }
+
+            if (tradeOpen && !FastMode)
+            {
+                foreach (var trade in openTrades)
+                {
+                    double currentPnL = closePrice - trade.Value.EntryPrice;
+                    if (trade.Value.PositionType == "Short")
+                    {
+                        currentPnL = -currentPnL;
+                    }
+                    LogTrade(logPath, trade.Key, dateTime, trade.Value.EntryPrice, closePrice, trade.Value.PositionType, currentPnL);
+                }
+            }
+            if (useDefaults && !FastMode)
+            {
+                int winningTrades = closedTrades.Count(t =>
+                    (t.Value.PositionType == "Long" && t.Value.ExitPrice > t.Value.EntryPrice) ||
+                    (t.Value.PositionType == "Short" && t.Value.ExitPrice < t.Value.EntryPrice));
+
+                Console.WriteLine("\n=== DEFAULT RUN SUMMARY ===");
+                Console.WriteLine($"Total Trades: {closedTrades.Count}");
+                Console.WriteLine($"Winning Trades: {winningTrades}");
+                Console.WriteLine($"Win Rate: {(double)winningTrades / closedTrades.Count:P2}");
+                Console.WriteLine($"Total Profit: ${totalProfit:F2}");
+                Console.WriteLine($"Average Profit per Trade: ${totalProfit / closedTrades.Count:F2}");
+            }
+        }
+
+        totalProfit = CalculateResults(closedTrades);
+
+        if (!FastMode)
+        {
+            Console.WriteLine($"\nBacktest completed with {closedTrades.Count} trades");
+            Console.WriteLine($"Total Profit: ${totalProfit:F2}");
+        }
+
+        return totalProfit;
+    }
+
+
+    private static bool FastMode;
+    private static double _cumulativeProfit = 0;
+
+    static SimpleDailyBacktest()
+    {
+        Console.WriteLine("Select execution mode:");
+        Console.WriteLine("1. FAST (minimal output, trades only)");
+        Console.WriteLine("2. SLOW (detailed logging)");
+        Console.Write("Enter choice (1 or 2): ");
+
+        FastMode = Console.ReadLine()?.Trim() == "1";
+        Console.Clear();
+    }
+
+    private static void ProcessAndManageTrades(
+        DateTime currentTime,
+        double currentPrice,
+        double atrValue,
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades,
+        Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> closedTrades,
+        ref bool tradeOpen)
+    {
+        if (!openTrades.Any()) return;
+
+        var tradesToRemove = new List<DateTime>();
+
+        foreach (var trade in openTrades)
+        {
+            var (entryPrice, positionType, currentTrailStop, targetProfit) = trade.Value;
+
+            if (positionType == "Long")
+            {
+                double newTrailStop = currentPrice - (atrValue * 2.0);
+                if (newTrailStop > currentTrailStop)
+                {
+                    openTrades[trade.Key] = (entryPrice, positionType, newTrailStop, targetProfit);
+                    if (!FastMode)
+                    {
+                        Console.WriteLine($"Trail Stop Updated: ${newTrailStop:F2}");
+                    }
+                }
+
+                if (currentPrice >= targetProfit || currentPrice <= currentTrailStop)
+                {
+                    double profitLoss = currentPrice - entryPrice;
+                    closedTrades[currentTime] = (entryPrice, currentPrice, positionType);
+                    tradesToRemove.Add(trade.Key);
+                    LogTrade(logPath, trade.Key, currentTime, entryPrice, currentPrice, positionType, profitLoss);
+
+                    if (!FastMode)
+                    {
+                        string exitReason = currentPrice >= targetProfit ? "Target Hit" : "Stop Hit";
+                        Console.WriteLine($"Long Exit ({exitReason}): ${currentPrice:F2} | P&L: ${profitLoss:F2}");
+                    }
+                }
+            }
+            else // Short position
+            {
+                double newTrailStop = currentPrice + (atrValue * 2.0);
+                if (newTrailStop < currentTrailStop)
+                {
+                    openTrades[trade.Key] = (entryPrice, positionType, newTrailStop, targetProfit);
+                    if (!FastMode)
+                    {
+                        Console.WriteLine($"Trail Stop Updated: ${newTrailStop:F2}");
+                    }
+                }
+
+                if (currentPrice <= targetProfit || currentPrice >= currentTrailStop)
+                {
+                    double profitLoss = entryPrice - currentPrice;
+                    closedTrades[currentTime] = (entryPrice, currentPrice, positionType);
+                    tradesToRemove.Add(trade.Key);
+                    LogTrade(logPath, trade.Key, currentTime, entryPrice, currentPrice, positionType, profitLoss);
+
+                    if (!FastMode)
+                    {
+                        string exitReason = currentPrice <= targetProfit ? "Target Hit" : "Stop Hit";
+                        Console.WriteLine($"Short Exit ({exitReason}): ${currentPrice:F2} | P&L: ${profitLoss:F2}");
+                    }
+                }
+            }
+
+            if (currentTime.TimeOfDay >= new TimeSpan(15, 55, 0))
+            {
+                double profitLoss = positionType == "Long" ? currentPrice - entryPrice : entryPrice - currentPrice;
+                closedTrades[currentTime] = (entryPrice, currentPrice, positionType);
+                tradesToRemove.Add(trade.Key);
+                LogTrade(logPath, trade.Key, currentTime, entryPrice, currentPrice, positionType, profitLoss);
+
+                if (!FastMode)
+                {
+                    Console.WriteLine($"Market Close Exit: ${currentPrice:F2} | P&L: ${profitLoss:F2}");
+                }
+            }
+        }
+
+        foreach (var key in tradesToRemove)
+        {
+            openTrades.Remove(key);
+            tradeOpen = false;
+        }
+    }
+
+
+    private static void PrintDetailedTradeInfo(DateTime currentTime, double currentPrice,
+        double entryPrice, string positionType, double currentTrailStop, double targetProfit)
+    {
+        Console.WriteLine($"\n=== Trade Monitor at {currentTime:HH:mm:ss} ===");
+        Console.WriteLine($"Position: {positionType}");
+        Console.WriteLine($"Current Price: ${currentPrice:F2}");
+        Console.WriteLine($"Entry Price: ${entryPrice:F2}");
+        Console.WriteLine($"Current P&L: ${(currentPrice - entryPrice):F2}");
+        Console.WriteLine($"Trail Stop: ${currentTrailStop:F2}");
+        Console.WriteLine($"Target: ${targetProfit:F2}");
+        Console.WriteLine("\n=== EXIT CONDITION CHECK ===");
+        Console.WriteLine($"Distance to Target: ${targetProfit - currentPrice:F2} [Target: ${targetProfit:F2}]");
+        Console.WriteLine($"Distance to Stop: ${currentPrice - currentTrailStop:F2} [Stop: ${currentTrailStop:F2}]");
+        Console.WriteLine($"Time to Market Close: {new TimeSpan(15, 55, 0) - currentTime.TimeOfDay} [Exit: 15:55:00]");
+        Console.WriteLine($"Current Status: {(currentPrice > currentTrailStop ? "Above Stop" : "STOP HIT")} | {(currentPrice < targetProfit ? "Below Target" : "TARGET HIT")}");
+    }
+
+
+    private static bool ExecuteAboveEmaStrategies(DefaultSettings settings, DateTime dateTime, double closePrice,
+        double atrValue, Dictionary<string, double> indicators,
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades)
+    {
+        return ApplyStrategy(settings.AboveEmaLong1, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Long") ||
+               ApplyStrategy(settings.AboveEmaLong2, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Long") ||
+               ApplyStrategy(settings.AboveEmaShort1, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Short") ||
+               ApplyStrategy(settings.AboveEmaShort2, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Short");
+    }
+
+    private static bool ExecuteBelowEmaStrategies(DefaultSettings settings, DateTime dateTime, double closePrice,
+        double atrValue, Dictionary<string, double> indicators,
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades)
+    {
+        return ApplyStrategy(settings.BelowEmaLong1, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Long") ||
+               ApplyStrategy(settings.BelowEmaLong2, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Long") ||
+               ApplyStrategy(settings.BelowEmaShort1, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Short") ||
+               ApplyStrategy(settings.BelowEmaShort2, dateTime, closePrice, atrValue, indicators, openTrades, closedTrades, "Short");
+    }
+
+
+
+
+
+    private static void PrintIndicatorValues(DateTime dateTime, double closePrice, Dictionary<string, double> indicators, DefaultSettings settings)
+    {
+        if (FastMode) return;
+
+        Console.WriteLine("\n=================================================");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"Market Data - {dateTime:yyyy-MM-dd HH:mm:ss}");
+        Console.WriteLine($"Close Price: ${closePrice:F2}");
+        Console.ResetColor();
+        Console.WriteLine("=================================================");
+
+        var strategies = new Dictionary<string, Strategy>
+    {
+        { "AboveEmaLong1", settings.AboveEmaLong1 },
+        { "AboveEmaLong2", settings.AboveEmaLong2 },
+        { "AboveEmaShort1", settings.AboveEmaShort1 },
+        { "AboveEmaShort2", settings.AboveEmaShort2 },
+        { "BelowEmaLong1", settings.BelowEmaLong1 },
+        { "BelowEmaLong2", settings.BelowEmaLong2 },
+        { "BelowEmaShort1", settings.BelowEmaShort1 },
+        { "BelowEmaShort2", settings.BelowEmaShort2 }
+    };
+
+        foreach (var strategyPair in strategies)
+        {
+            var strategy = strategyPair.Value;
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine($"\nStrategy: {strategyPair.Key}");
+            Console.ResetColor();
+
+            // CCI Indicators
+            Console.WriteLine("  CCI Indicators:");
+            if (indicators.ContainsKey(strategy.CciIndicator1) && indicators.ContainsKey(strategy.CciIndicator2))
+            {
+                PrintIndicator("CCI-1", strategy.CciIndicator1, indicators[strategy.CciIndicator1],
+                              strategy.Cci1Operator, strategy.Cci1Threshold);
+                PrintIndicator("CCI-2", strategy.CciIndicator2, indicators[strategy.CciIndicator2],
+                              strategy.Cci2Operator, strategy.Cci2Threshold);
+            }
+
+            // MACD Indicators
+            Console.WriteLine("  MACD Indicators:");
+            if (indicators.ContainsKey(strategy.MacdIndicator1Line) && indicators.ContainsKey(strategy.MacdIndicator2Line))
+            {
+                PrintIndicator("MACD-1", strategy.MacdIndicator1Line, indicators[strategy.MacdIndicator1Line],
+                              strategy.Macd1Operator, strategy.Macd1Threshold);
+                PrintIndicator("MACD-2", strategy.MacdIndicator2Line, indicators[strategy.MacdIndicator2Line],
+                              strategy.Macd2Operator, strategy.Macd2Threshold);
+            }
+
+            // Risk Management
+            Console.WriteLine("  Risk Management:");
+            if (indicators.ContainsKey(strategy.AtrIndicator))
+            {
+                Console.WriteLine($"    ATR: {strategy.AtrIndicator} = {indicators[strategy.AtrIndicator]:F4}");
+                Console.WriteLine($"    Trail Stop: {strategy.TrailStopMultiplier}x ATR");
+                Console.WriteLine($"    Profit Target: {strategy.ProfitTargetMultiplier}x ATR");
+            }
+        }
+    }
+
+    private static void PrintIndicator(string name, string indicator, double value, string op, double threshold)
+    {
+        if (FastMode) return;
+
+        Console.Write($"    {name}: {indicator} = ");
+        Console.ForegroundColor = value > threshold ? ConsoleColor.Green : ConsoleColor.Red;
+        Console.Write($"{value:F4}");
+        Console.ResetColor();
+        Console.WriteLine($" ({op} {threshold:F4})");
+    }
+
+    private static bool ApplyStrategy(Strategy strategy, DateTime dateTime, double closePrice, double atrValue,
+        Dictionary<string, double> indicators,
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades,
+        Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> closedTrades,
+        string positionType)
+    {
+        if (CheckEntryConditions(strategy, indicators) &&
+            dateTime.TimeOfDay >= new TimeSpan(9, 30, 0) &&
+            dateTime.TimeOfDay < new TimeSpan(15, 55, 0))
+        {
+            double trailStop = positionType == "Long"
+                ? closePrice - (atrValue * strategy.TrailStopMultiplier)
+                : closePrice + (atrValue * strategy.TrailStopMultiplier);
+
+            double targetProfit = positionType == "Long"
+                ? closePrice + (atrValue * strategy.ProfitTargetMultiplier)
+                : closePrice - (atrValue * strategy.ProfitTargetMultiplier);
+
+            double risk = Math.Abs(closePrice - trailStop);
+
+            openTrades[dateTime] = (closePrice, positionType, trailStop, targetProfit);
+
+            if (!FastMode)
+            {
+                Console.WriteLine("\n=== NEW TRADE ENTRY ===");
+                Console.WriteLine($"Time: {dateTime:HH:mm:ss}");
+                Console.WriteLine($"Position: {positionType}");
+                Console.WriteLine($"Entry Price: ${closePrice:F2}");
+                Console.WriteLine($"Initial Trail Stop: ${trailStop:F2}");
+                Console.WriteLine($"Target: ${targetProfit:F2}");
+                Console.WriteLine($"Risk: ${risk:F2}");
+                Console.WriteLine($"Reward: ${risk:F2}");
+                Console.WriteLine("\n=== ACTIVE TRADE STATUS ===");
+                Console.WriteLine($"Entry Time: {dateTime}");
+                Console.WriteLine($"Entry Price: ${closePrice:F2}");
+                Console.WriteLine($"Current P&L: $0.00");
+                Console.WriteLine($"Trail Stop: ${trailStop:F2}");
+                Console.WriteLine($"Target: ${targetProfit:F2}");
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+    private static void LogTrade(DateTime entryTime, DateTime exitTime, double entryPrice, double exitPrice, string positionType, double profit)
+    {
+        string logEntry = $"{entryTime:yyyy-MM-dd HH:mm:ss},{exitTime:yyyy-MM-dd HH:mm:ss},{entryPrice:F2},{exitPrice:F2},{positionType},{profit:F2}";
+
+        using (StreamWriter writer = new StreamWriter("TradeLog.txt", true))
+        {
+            writer.WriteLine(logEntry);
+        }
+    }
+
+
+
+
+    private static double RunOptimization(List<Dictionary<string, double>> data, string[] headers, DefaultSettings defaults)
+    {
+        bool useDefaults = true;  // or false depending on your needs
+        var bestProfit = double.MinValue;
+        var bestSettings = new DefaultSettings();
+        var startTime = DateTime.Now;
+        var timeout = TimeSpan.FromHours(12); // 12-hour runtime for overnight processing
+        var totalTests = 100000; // Increased tests for longer runtime
+        var testsCompleted = 0;
+
+        Console.WriteLine("Optimization running. Press any key to stop...");
+
+        while (!Console.KeyAvailable &&
+               DateTime.Now - startTime < timeout &&
+               testsCompleted < totalTests)
+        {
+            RandomizeStrategySettings(defaults);
+            var result = PerformBacktest(data, defaults, useDefaults);
+            testsCompleted++;
+
+            if (testsCompleted % 50 == 0) // Show progress every 50 tests
+            {
+                Console.WriteLine($"Test {testsCompleted}/{totalTests} - Current Profit: {result}");
+            }
+
+            if (result > bestProfit)
+            {
+                bestProfit = result;
+                bestSettings = new DefaultSettings
+                {
+                    AboveEmaLong1 = defaults.AboveEmaLong1,
+                    AboveEmaLong2 = defaults.AboveEmaLong2,
+                    AboveEmaShort1 = defaults.AboveEmaShort1,
+                    AboveEmaShort2 = defaults.AboveEmaShort2,
+                    BelowEmaLong1 = defaults.BelowEmaLong1,
+                    BelowEmaLong2 = defaults.BelowEmaLong2,
+                    BelowEmaShort1 = defaults.BelowEmaShort1,
+                    BelowEmaShort2 = defaults.BelowEmaShort2
+                };
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"New Best Profit Found: {bestProfit}!");
+                Console.ResetColor();
+            }
+        }
+
+        // Results will always be saved, regardless of how the process ends
+        Console.WriteLine($"\nOptimization Complete!");
+        Console.WriteLine($"Tests Completed: {testsCompleted}");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"Best Profit: {bestProfit}");
+        Console.ResetColor();
+        SaveOptimizationResults(bestProfit, bestSettings);
+
+        return bestProfit;
+    }
+
+
+    private static void RandomizeStrategySettings(DefaultSettings settings)
+    {
+        var random = new Random();
+
+        string[] cciIndicators = {
+        "CCI_5", "CCI_15", "CCI_25", "CCI_35", "CCI_45", "CCI_55",
+        "CCI_65", "CCI_75", "CCI_85", "CCI_95", "CCI_105", "CCI_115",
+        "CCI_125", "CCI_135", "CCI_145", "CCI_155", "CCI_165", "CCI_175",
+        "CCI_185", "CCI_195", "CCI_205", "CCI_215", "CCI_225", "CCI_235",
+        "CCI_245", "CCI_255", "CCI_265", "CCI_275", "CCI_285", "CCI_295"
+    };
+
+        string[] macdIndicators = {
+        "MACD_2_5_9_line", "MACD_4_10_9_line", "MACD_6_15_9_line",
+        "MACD_9_20_9_line", "MACD_11_25_9_line", "MACD_13_30_9_line",
+        "MACD_16_35_9_line", "MACD_18_40_9_line", "MACD_20_45_9_line",
+        "MACD_23_50_9_line", "MACD_25_55_9_line", "MACD_27_60_9_line",
+        "MACD_29_65_9_line", "MACD_32_70_9_line", "MACD_34_75_9_line",
+        "MACD_36_80_9_line", "MACD_39_85_9_line", "MACD_41_90_9_line",
+        "MACD_43_95_9_line", "MACD_46_100_9_line", "MACD_48_105_9_line",
+        "MACD_50_110_9_line", "MACD_52_115_9_line", "MACD_55_120_9_line"
+    };
+
+        string[] atrIndicators = {
+        "ATR_2", "ATR_4", "ATR_6", "ATR_8", "ATR_10",
+        "ATR_12", "ATR_14", "ATR_16", "ATR_18", "ATR_20"
+    };
+
+        string[] operators = { ">", "<" };
+
+        var strategies = new[]
+        {
+        settings.AboveEmaLong1, settings.AboveEmaLong2, settings.AboveEmaShort1, settings.AboveEmaShort2,
+        settings.BelowEmaLong1, settings.BelowEmaLong2, settings.BelowEmaShort1, settings.BelowEmaShort2
+    };
+
+        foreach (var strategy in strategies)
+        {
+            strategy.CciIndicator1 = cciIndicators[random.Next(cciIndicators.Length)];
+            strategy.CciIndicator2 = cciIndicators[random.Next(cciIndicators.Length)];
+            strategy.MacdIndicator1Line = macdIndicators[random.Next(macdIndicators.Length)];
+            strategy.MacdIndicator2Line = macdIndicators[random.Next(macdIndicators.Length)];
+            strategy.AtrIndicator = atrIndicators[random.Next(atrIndicators.Length)];
+            strategy.Cci1Operator = operators[random.Next(operators.Length)];
+            strategy.Cci2Operator = operators[random.Next(operators.Length)];
+            strategy.Macd1Operator = operators[random.Next(operators.Length)];
+            strategy.Macd2Operator = operators[random.Next(operators.Length)];
+
+            strategy.Cci1Threshold = random.Next(-60, 61) * 5;  // -300 to 300 by 5
+            strategy.Cci2Threshold = random.Next(-60, 61) * 5;  // -300 to 300 by 5
+            strategy.Macd1Threshold = (random.Next(-100, 101)) / 100.0;  // -1 to 1 by 0.01
+            strategy.Macd2Threshold = (random.Next(-100, 101)) / 100.0;  // -1 to 1 by 0.01
+            strategy.TrailStopMultiplier = random.Next(2, 21);  // 2 to 20 by 1
+            strategy.ProfitTargetMultiplier = random.Next(2, 21);  // 2 to 20 by 1
+        }
+    }
+
+
+    private static bool CheckEntryConditions(Strategy strategy, Dictionary<string, double> indicators)
+    {
+        bool indicatorsExist = indicators.ContainsKey(strategy.CciIndicator1) &&
+                               indicators.ContainsKey(strategy.CciIndicator2) &&
+                               indicators.ContainsKey(strategy.MacdIndicator1Line) &&
+                               indicators.ContainsKey(strategy.MacdIndicator2Line);
+
+        if (!indicatorsExist) return false;
+
+        bool cci1Condition = EvaluateCondition(indicators[strategy.CciIndicator1], strategy.Cci1Threshold, strategy.Cci1Operator);
+        bool cci2Condition = EvaluateCondition(indicators[strategy.CciIndicator2], strategy.Cci2Threshold, strategy.Cci2Operator);
+        bool macd1Condition = EvaluateCondition(indicators[strategy.MacdIndicator1Line], strategy.Macd1Threshold, strategy.Macd1Operator);
+        bool macd2Condition = EvaluateCondition(indicators[strategy.MacdIndicator2Line], strategy.Macd2Threshold, strategy.Macd2Operator);
+
+        return cci1Condition && cci2Condition && macd1Condition && macd2Condition;
+    }
+
+    private static bool EvaluateCondition(double indicatorValue, double threshold, string op)
+    {
+        return op switch
+        {
+            ">" => indicatorValue > threshold,
+            "<" => indicatorValue < threshold,
+            ">=" => indicatorValue >= threshold,
+            "<=" => indicatorValue <= threshold,
+            "==" => indicatorValue == threshold,
+            "!=" => indicatorValue != threshold,
+            _ => throw new ArgumentException($"Invalid operator: {op}")
+        };
+    }
+
+
+    private static bool CheckExitConditions(double currentPrice, double trailStop, double targetProfit, string positionType)
+    {
+        Console.WriteLine($"\n=== EXIT CHECK ===");
+        Console.WriteLine($"Current Price: ${currentPrice:F2}");
+        Console.WriteLine($"Trail Stop: ${trailStop:F2}");
+        Console.WriteLine($"Target: ${targetProfit:F2}");
+        Console.WriteLine($"Position: {positionType}");
+
+        bool exitTriggered = false;
+
+        if (positionType == "Long")
+        {
+            if (currentPrice <= trailStop)
+            {
+                Console.WriteLine("Long position stopped out");
+                exitTriggered = true;
+            }
+            else if (currentPrice >= targetProfit)
+            {
+                Console.WriteLine("Long position target reached");
+                exitTriggered = true;
+            }
+        }
+        else // Short position
+        {
+            if (currentPrice >= trailStop)
+            {
+                Console.WriteLine("Short position stopped out");
+                exitTriggered = true;
+            }
+            else if (currentPrice <= targetProfit)
+            {
+                Console.WriteLine("Short position target reached");
+                exitTriggered = true;
+            }
+        }
+
+        if (exitTriggered)
+        {
+            Console.WriteLine($"Exit Price: ${currentPrice:F2}");
+        }
+
+        return exitTriggered;
+    }
+
+
+
+
+
+
+
+    private static void ManageExits(
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades,
+        Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> closedTrades,
+        DateTime currentTime,
+        double currentPrice,
+        double atrValue,
+        ref bool tradeOpen)
+    {
+        if (!openTrades.Any()) return;  // Early exit if no open trades
+
+        Console.WriteLine($"\n=== Trade Status at {currentTime} ===");
+        Console.WriteLine($"Open Trades Count: {openTrades.Count}");
+        Console.WriteLine($"Current Market Price: ${currentPrice:F2}");
+
+        foreach (var trade in openTrades.ToList())
+        {
+            var (entryPrice, positionType, currentTrailStop, targetProfit) = trade.Value;
+
+            Console.WriteLine($"\nMonitoring Trade Entered at: {trade.Key}");
+            Console.WriteLine($"Entry Price: ${entryPrice:F2}");
+            Console.WriteLine($"Current Trail Stop: ${currentTrailStop:F2}");
+            Console.WriteLine($"Target: ${targetProfit:F2}");
+            Console.WriteLine($"Current P/L: ${currentPrice - entryPrice:F2}");
+
+            // Update trailing stop
+            double newTrailStop = currentPrice - (atrValue * 2.0);
+            if (newTrailStop > currentTrailStop)
+            {
+                openTrades[trade.Key] = (entryPrice, positionType, newTrailStop, targetProfit);
+                Console.WriteLine($"Trail Stop Updated to: ${newTrailStop:F2}");
+            }
+
+            // Check exit conditions with detailed logging
+            if (currentPrice >= targetProfit)
+            {
+                Console.WriteLine("EXIT: Target Price Hit!");
+                ClosePosition(trade.Key, currentTime, entryPrice, currentPrice, positionType, closedTrades, openTrades, "target");
+                tradeOpen = false;
+            }
+            else if (currentPrice <= currentTrailStop)
+            {
+                Console.WriteLine("EXIT: Trailing Stop Hit!");
+                ClosePosition(trade.Key, currentTime, entryPrice, currentPrice, positionType, closedTrades, openTrades, "stop");
+                tradeOpen = false;
+            }
+            else if (currentTime.TimeOfDay >= new TimeSpan(15, 55, 0))
+            {
+                Console.WriteLine("EXIT: Market Close!");
+                ClosePosition(trade.Key, currentTime, entryPrice, currentPrice, positionType, closedTrades, openTrades, "close");
+                tradeOpen = false;
+            }
+        }
+    }
+
+
+
+    private static void ClosePosition(
+        DateTime tradeKey,
+        DateTime currentTime,
+        double entryPrice,
+        double exitPrice,
+        string positionType,
+        Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> closedTrades,
+        Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades,
+        string exitReason)
+    {
+        double profitLoss = exitPrice - entryPrice;
+        closedTrades.Add(currentTime, (entryPrice, exitPrice, positionType));
+        openTrades.Remove(tradeKey);
+
+        LogTradeExit(exitReason, exitPrice, profitLoss);
+    }
+
+    private static void LogTradeUpdate(string message, double value)
+    {
+        Console.WriteLine($"{message}: ${value:F2}");
+    }
+
+    private static void LogTradeExit(string exitReason, double exitPrice, double profitLoss)
+    {
+        Console.WriteLine($"Trade closed at {exitReason}: ${exitPrice:F2}");
+        Console.WriteLine($"Profit/Loss: ${profitLoss:F2}");
+    }
+
+
+
+    private static double CalculateResults(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades)
+    {
+        if (!trades.Any())
+        {
+            Console.WriteLine("\n=== BACKTEST RESULTS ===");
+            Console.WriteLine("No completed trades to analyze");
+            Console.WriteLine("Total Profit: $0.00");
+            return 0;
+        }
+
+        double totalProfit = 0;
+        var dailyProfits = new Dictionary<DateTime, double>();
+        var weeklyProfits = new Dictionary<int, double>();
+        var monthlyProfits = new Dictionary<string, double>();
+
+        foreach (var trade in trades)
+        {
+            DateTime entryDate = trade.Key;
+            double profit = trade.Value.PositionType == "Long" ?
+                trade.Value.ExitPrice - trade.Value.EntryPrice :
+                trade.Value.EntryPrice - trade.Value.ExitPrice;
+
+            totalProfit += profit;
+
+            var date = entryDate.Date;
+            dailyProfits.TryAdd(date, 0);
+            dailyProfits[date] += profit;
+
+            int weekOfYear = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(
+                entryDate, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            weeklyProfits.TryAdd(weekOfYear, 0);
+            weeklyProfits[weekOfYear] += profit;
+
+            string monthYear = entryDate.ToString("yyyy-MM");
+            monthlyProfits.TryAdd(monthYear, 0);
+            monthlyProfits[monthYear] += profit;
+        }
+
+        // Print results safely with null checks
+        Console.WriteLine("\n=== BACKTEST RESULTS ===");
+        Console.WriteLine($"Total Profit: ${totalProfit:F2}");
+
+        if (dailyProfits.Any())
+        {
+            Console.WriteLine("\nDaily Profits:");
+            foreach (var dp in dailyProfits.OrderBy(x => x.Key))
+            {
+                Console.WriteLine($"{dp.Key:yyyy-MM-dd}: ${dp.Value:F2}");
+            }
+        }
+
+        if (weeklyProfits.Any())
+        {
+            Console.WriteLine("\nWeekly Profits:");
+            foreach (var wp in weeklyProfits.OrderBy(x => x.Key))
+            {
+                Console.WriteLine($"Week {wp.Key}: ${wp.Value:F2}");
+            }
+        }
+
+        if (monthlyProfits.Any())
+        {
+            Console.WriteLine("\nMonthly Profits:");
+            foreach (var mp in monthlyProfits.OrderBy(x => x.Key))
+            {
+                Console.WriteLine($"{mp.Key}: ${mp.Value:F2}");
+            }
+        }
+
+        return totalProfit;
+    }
+
+    private static bool useDefaults;
+    private static void GenerateSummary(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades, DefaultSettings settings)
+    {
+        if (!trades.Any())
+        {
+            Console.WriteLine("No trades found to analyze!");
+            return;
+        }
+
+        using (StreamWriter writer = new StreamWriter(logPath, true))
+        {
+            // Basic Statistics
+            int totalTrades = trades.Count;
+            var profits = trades.Select(t => t.Value.PositionType == "Long" ?
+                t.Value.ExitPrice - t.Value.EntryPrice :
+                t.Value.EntryPrice - t.Value.ExitPrice).ToList();
+            int winningTrades = profits.Count(p => p > 0);
+            int losingTrades = profits.Count(p => p <= 0);
+            double winRate = (double)winningTrades / totalTrades * 100;
+
+            // Advanced Profit Metrics
+            double totalProfit = profits.Any() ? profits.Sum() : 0;
+            double averageProfit = profits.Any() ? profits.Average() : 0;
+            double maxProfit = profits.Any() ? profits.Max() : 0;
+            double maxLoss = profits.Any() ? profits.Min() : 0;
+            double profitFactor = profits.Any() && profits.Where(p => p < 0).Sum() != 0
+                ? profits.Where(p => p > 0).Sum() / Math.Abs(profits.Where(p => p < 0).Sum())
+                : 0;
+
+
+            // Streak Analysis
+            int currentWinStreak = 0;
+            int currentLoseStreak = 0;
+            int maxWinStreak = 0;
+            int maxLoseStreak = 0;
+
+            foreach (var profit in profits)
+            {
+                if (profit > 0)
+                {
+                    currentWinStreak++;
+                    currentLoseStreak = 0;
+                    maxWinStreak = Math.Max(maxWinStreak, currentWinStreak);
+                }
+                else
+                {
+                    currentLoseStreak++;
+                    currentWinStreak = 0;
+                    maxLoseStreak = Math.Max(maxLoseStreak, currentLoseStreak);
+                }
+            }
+
+            // Time-based Analysis
+            var dailyProfits = new Dictionary<DateTime, double>();
+            var weeklyProfits = new Dictionary<int, double>();
+            var monthlyProfits = new Dictionary<string, double>();
+
+            foreach (var trade in trades)
+            {
+                DateTime entryDate = trade.Key;
+                double profit = trade.Value.PositionType == "Long" ?
+                    trade.Value.ExitPrice - trade.Value.EntryPrice :
+                    trade.Value.EntryPrice - trade.Value.ExitPrice;
+
+                dailyProfits.TryAdd(entryDate.Date, 0);
+                dailyProfits[entryDate.Date] += profit;
+
+                int weekOfYear = CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(
+                    entryDate, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+                weeklyProfits.TryAdd(weekOfYear, 0);
+                weeklyProfits[weekOfYear] += profit;
+
+                string monthYear = entryDate.ToString("yyyy-MM");
+                monthlyProfits.TryAdd(monthYear, 0);
+                monthlyProfits[monthYear] += profit;
+            }
+
+            // Write all statistics to the log file
+            writer.WriteLine("\n=== TRADING PERFORMANCE SUMMARY ===");
+            writer.WriteLine($"Total Trades: {totalTrades}");
+            writer.WriteLine($"Winning Trades: {winningTrades}");
+            writer.WriteLine($"Losing Trades: {losingTrades}");
+            writer.WriteLine($"Win Rate: {winRate:F2}%");
+            writer.WriteLine($"\nProfit Metrics:");
+            writer.WriteLine($"Total Profit: ${totalProfit:F2}");
+            writer.WriteLine($"Average Profit per Trade: ${averageProfit:F2}");
+            writer.WriteLine($"Largest Win: ${maxProfit:F2}");
+            writer.WriteLine($"Largest Loss: ${maxLoss:F2}");
+            writer.WriteLine($"Profit Factor: {profitFactor:F2}");
+            writer.WriteLine($"\nStreak Analysis:");
+            writer.WriteLine($"Maximum Win Streak: {maxWinStreak}");
+            writer.WriteLine($"Maximum Loss Streak: {maxLoseStreak}");
+
+            writer.WriteLine("\n=== TIME-BASED ANALYSIS ===");
+            writer.WriteLine("\nDaily Profits:");
+            foreach (var daily in dailyProfits.OrderBy(x => x.Key))
+            {
+                writer.WriteLine($"{daily.Key:yyyy-MM-dd}: ${daily.Value:F2}");
+            }
+
+            writer.WriteLine("\nWeekly Profits:");
+            foreach (var weekly in weeklyProfits.OrderBy(x => x.Key))
+            {
+                writer.WriteLine($"Week {weekly.Key}: ${weekly.Value:F2}");
+            }
+
+            writer.WriteLine("\nMonthly Profits:");
+            foreach (var monthly in monthlyProfits.OrderBy(x => x.Key))
+            {
+                writer.WriteLine($"{monthly.Key}: ${monthly.Value:F2}");
+            }
+
+            writer.WriteLine("\n=== STRATEGY SETTINGS ===");
+            writer.WriteLine($"ATR Indicator: {settings.AboveEmaLong1.AtrIndicator}");
+            writer.WriteLine($"CCI Indicators: {settings.AboveEmaLong1.CciIndicator1}, {settings.AboveEmaLong1.CciIndicator2}");
+            writer.WriteLine($"MACD Lines: {settings.AboveEmaLong1.MacdIndicator1Line}, {settings.AboveEmaLong1.MacdIndicator2Line}");
+        }
+    }
+
+
+    private static void SaveResultsToFile(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades, DefaultSettings settings, bool isRandom)
+    {
+        string logFilename = isRandom ? "randomtradelog.csv" : "defaulttradelog.csv";
+
+        using (StreamWriter writer = new StreamWriter(logFilename))
+        {
+            // Write headers
+            writer.WriteLine("DateTime,PositionType,EntryPrice,ExitPrice,Profit");
+
+            // Write trades
+            foreach (var trade in trades.OrderBy(t => t.Key))
+            {
+                double profit = trade.Value.PositionType == "Long" ?
+                    trade.Value.ExitPrice - trade.Value.EntryPrice :
+                    trade.Value.EntryPrice - trade.Value.ExitPrice;
+                writer.WriteLine($"{trade.Key:yyyy-MM-dd HH:mm:ss},{trade.Value.PositionType}," +
+                                 $"{trade.Value.EntryPrice:F2},{trade.Value.ExitPrice:F2},{profit:F2}");
+            }
+        }
+
+        // Append summary to the file
+        GenerateSummary(trades, settings);
+
+    }
+
+    private static void PrintStrategySummary(DefaultSettings settings, StreamWriter writer)
+    {
+        var strategies = new Dictionary<string, Strategy>
+    {
+        { "AboveEmaLong1", settings.AboveEmaLong1 },
+        { "AboveEmaLong2", settings.AboveEmaLong2 },
+        { "AboveEmaShort1", settings.AboveEmaShort1 },
+        { "AboveEmaShort2", settings.AboveEmaShort2 },
+        { "BelowEmaLong1", settings.BelowEmaLong1 },
+        { "BelowEmaLong2", settings.BelowEmaLong2 },
+        { "BelowEmaShort1", settings.BelowEmaShort1 },
+        { "BelowEmaShort2", settings.BelowEmaShort2 }
+    };
+
+        foreach (var strategyPair in strategies)
+        {
+            var strategy = strategyPair.Value;
+            writer.WriteLine($"\nStrategy: {strategyPair.Key}");
+
+            // CCI Indicators
+            writer.WriteLine("  CCI Indicators:");
+            writer.WriteLine($"    CCI-1: {strategy.CciIndicator1} {strategy.Cci1Operator} {strategy.Cci1Threshold}");
+            writer.WriteLine($"    CCI-2: {strategy.CciIndicator2} {strategy.Cci2Operator} {strategy.Cci2Threshold}");
+
+            // MACD Indicators
+            writer.WriteLine("  MACD Indicators:");
+            writer.WriteLine($"    MACD-1: {strategy.MacdIndicator1Line} {strategy.Macd1Operator} {strategy.Macd1Threshold}");
+            writer.WriteLine($"    MACD-2: {strategy.MacdIndicator2Line} {strategy.Macd2Operator} {strategy.Macd2Threshold}");
+
+            // Risk Management
+            writer.WriteLine("  Risk Management:");
+            writer.WriteLine($"    ATR: {strategy.AtrIndicator}");
+            writer.WriteLine($"    Trail Stop: {strategy.TrailStopMultiplier}x ATR");
+            writer.WriteLine($"    Profit Target: {strategy.ProfitTargetMultiplier}x ATR");
+        }
+    }
+
+
+    public static void WriteTradeLogHeader(string filepath)
+    {
+        var header = "EntryTime,ExitTime,EntryPrice,ExitPrice,Direction,ProfitLoss";
+        File.WriteAllText(filepath, header + Environment.NewLine);
+    }
+
+    public static void LogTrade(string filepath,
+        DateTime entryTime,
+        DateTime exitTime,
+        double entryPrice,
+        double exitPrice,
+        string direction,
+        double profitLoss,
+        bool isEntry = false)
+    {
+        var logLine = $"{entryTime:yyyy-MM-dd HH:mm:ss}," +
+                      $"{exitTime:yyyy-MM-dd HH:mm:ss}," +
+                      $"{entryPrice:F2}," +
+                      $"{exitPrice:F2}," +
+                      $"{direction}," +
+                      $"{(isEntry ? "0.00" : profitLoss.ToString("F2"))}";
+;
+
+        File.AppendAllText(filepath, logLine + Environment.NewLine);
+    }
+
+
+
+
+
+    private static void SaveOptimizationResults(double bestProfit, DefaultSettings settings, bool isDefault = true)
+    {
+        string filePath = "OptimizationResults.txt";
+        string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+        if (isDefault || (!isDefault && Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape))
+        {
+            using (StreamWriter writer = new StreamWriter(filePath, true))
+            {
+                writer.WriteLine("=================================================");
+                writer.WriteLine($"{(isDefault ? "Default" : "Optimization")} Results - {timestamp}");
+                writer.WriteLine("=================================================");
+                writer.WriteLine($"Best Profit: ${bestProfit:F2}");
+
+                var strategies = new Dictionary<string, Strategy>
+            {
+                { "AboveEmaLong1", settings.AboveEmaLong1 },
+                { "AboveEmaLong2", settings.AboveEmaLong2 },
+                { "AboveEmaShort1", settings.AboveEmaShort1 },
+                { "AboveEmaShort2", settings.AboveEmaShort2 },
+                { "BelowEmaLong1", settings.BelowEmaLong1 },
+                { "BelowEmaLong2", settings.BelowEmaLong2 },
+                { "BelowEmaShort1", settings.BelowEmaShort1 },
+                { "BelowEmaShort2", settings.BelowEmaShort2 }
+            };
+
+                foreach (var strategyPair in strategies)
+                {
+                    writer.WriteLine("\n-------------------------------------------------");
+                    writer.WriteLine($"Strategy: {strategyPair.Key}");
+                    writer.WriteLine("-------------------------------------------------");
+
+                    var strategy = strategyPair.Value;
+
+                    // CCI Settings
+                    writer.WriteLine("\nCCI Settings:");
+                    writer.WriteLine($"  Indicator 1: {strategy.CciIndicator1} {strategy.Cci1Operator} {strategy.Cci1Threshold}");
+                    writer.WriteLine($"  Indicator 2: {strategy.CciIndicator2} {strategy.Cci2Operator} {strategy.Cci2Threshold}");
+
+                    // MACD Settings
+                    writer.WriteLine("\nMACD Settings:");
+                    writer.WriteLine($"  Indicator 1: {strategy.MacdIndicator1Line} {strategy.Macd1Operator} {strategy.Macd1Threshold}");
+                    writer.WriteLine($"  Indicator 2: {strategy.MacdIndicator2Line} {strategy.Macd2Operator} {strategy.Macd2Threshold}");
+
+                    // Risk Management Settings
+                    writer.WriteLine("\nRisk Management:");
+                    writer.WriteLine($"  ATR Indicator: {strategy.AtrIndicator}");
+                    writer.WriteLine($"  Trail Stop Multiplier: {strategy.TrailStopMultiplier}x");
+                    writer.WriteLine($"  Profit Target Multiplier: {strategy.ProfitTargetMultiplier}x");
+
+                    // Complete Condition String
+                    writer.WriteLine("\nComplete Strategy Condition:");
+                    writer.WriteLine($"  IF ({strategy.CciIndicator1} {strategy.Cci1Operator} {strategy.Cci1Threshold} AND");
+                    writer.WriteLine($"      {strategy.CciIndicator2} {strategy.Cci2Operator} {strategy.Cci2Threshold} AND");
+                    writer.WriteLine($"      {strategy.MacdIndicator1Line} {strategy.Macd1Operator} {strategy.Macd1Threshold} AND");
+                    writer.WriteLine($"      {strategy.MacdIndicator2Line} {strategy.Macd2Operator} {strategy.Macd2Threshold})");
+                    writer.WriteLine($"  THEN ENTER {strategyPair.Key}");
+                }
+
+                writer.WriteLine("\n=================================================\n");
+            }
+        }
+    }
+    private static void SaveDefaultValuesResults(double result, DefaultSettings settings)
+    {
+        var sb = new StringBuilder();
+        string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+        sb.AppendLine("=================================================")
+          .AppendLine($"Strategy Results - {timestamp}")
+          .AppendLine("=================================================")
+          .AppendLine($"Total Net Profit: ${result:F2}\n");
+
+        var strategies = new Dictionary<string, Strategy>
+    {
+        { "AboveEmaLong1", settings.AboveEmaLong1 },
+        { "AboveEmaLong2", settings.AboveEmaLong2 },
+        { "AboveEmaShort1", settings.AboveEmaShort1 },
+        { "AboveEmaShort2", settings.AboveEmaShort2 },
+        { "BelowEmaLong1", settings.BelowEmaLong1 },
+        { "BelowEmaLong2", settings.BelowEmaLong2 },
+        { "BelowEmaShort1", settings.BelowEmaShort1 },
+        { "BelowEmaShort2", settings.BelowEmaShort2 }
+    };
+
+        foreach (var (name, strategy) in strategies)
+        {
+            sb.AppendLine($"\nStrategy: {name}")
+              .AppendLine("-------------------------------------------")
+              .AppendLine("\nCCI Configuration:")
+              .AppendLine($"CCI1: {strategy.CciIndicator1} {strategy.Cci1Operator} {strategy.Cci1Threshold}")
+              .AppendLine($"CCI2: {strategy.CciIndicator2} {strategy.Cci2Operator} {strategy.Cci2Threshold}")
+              .AppendLine("\nMACD Configuration:")
+              .AppendLine($"MACD1: {strategy.MacdIndicator1Line} {strategy.Macd1Operator} {strategy.Macd1Threshold}")
+              .AppendLine($"MACD2: {strategy.MacdIndicator2Line} {strategy.Macd2Operator} {strategy.Macd2Threshold}")
+              .AppendLine("\nRisk Parameters:")
+              .AppendLine($"ATR: {strategy.AtrIndicator}")
+              .AppendLine($"Trail Stop: {strategy.TrailStopMultiplier}x")
+              .AppendLine($"Profit Target: {strategy.ProfitTargetMultiplier}x")
+              .AppendLine("\nComplete Strategy Logic:")
+              .AppendLine($"IF ({strategy.CciIndicator1} {strategy.Cci1Operator} {strategy.Cci1Threshold} AND")
+              .AppendLine($"    {strategy.CciIndicator2} {strategy.Cci2Operator} {strategy.Cci2Threshold} AND")
+              .AppendLine($"    {strategy.MacdIndicator1Line} {strategy.Macd1Operator} {strategy.Macd1Threshold} AND")
+              .AppendLine($"    {strategy.MacdIndicator2Line} {strategy.Macd2Operator} {strategy.Macd2Threshold})")
+              .AppendLine($"THEN EXECUTE {name}\n");
+        }
+
+        sb.AppendLine("=================================================");
+
+        File.WriteAllText("DefaultValuesResults.txt", sb.ToString());
+    }
+
+
+}
+
+
