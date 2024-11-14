@@ -1,0 +1,159 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+
+public class Strategy
+{
+    // Properties for CCI, MACD indicators, thresholds, operators, and ATR-based settings
+    public required string CciIndicator1 { get; set; }
+    public required string CciIndicator2 { get; set; }
+    public required string MacdIndicator1 { get; set; }
+    public required string MacdIndicator2 { get; set; }
+    public required string AtrIndicator { get; set; }
+    public double Cci1Threshold { get; set; }
+    public double Cci2Threshold { get; set; }
+    public double Macd1Threshold { get; set; }
+    public double Macd2Threshold { get; set; }
+    public required string Cci1Operator { get; set; }
+    public required string Cci2Operator { get; set; }
+    public required string Macd1Operator { get; set; }
+    public required string Macd2Operator { get; set; }
+    public double TrailStopMultiplier { get; set; }
+    public double ProfitTargetMultiplier { get; set; }
+}
+
+public class DefaultSettings
+{
+    // Define eight default strategies with specific conditions for above and below EMA
+    public Strategy AboveEmaLong1 { get; }
+    public Strategy AboveEmaLong2 { get; }
+    public Strategy AboveEmaShort1 { get; }
+    public Strategy AboveEmaShort2 { get; }
+    public Strategy BelowEmaLong1 { get; }
+    public Strategy BelowEmaLong2 { get; }
+    public Strategy BelowEmaShort1 { get; }
+    public Strategy BelowEmaShort2 { get; }
+
+    public DefaultSettings()
+    {
+        // Initialize each strategy with basic default settings, to be randomized later in optimization
+    }
+}
+
+public class SimpleDailyBacktest
+{
+    public static void Main()
+    {
+        // Load default settings and prompt user for optimization mode
+        var defaults = new DefaultSettings();
+        Console.WriteLine("Use default settings? (YES/NO):");
+        bool useDefaults = Console.ReadLine()?.Trim().ToUpper() == "YES";
+
+        // Load data and parse indicators from CSV file (BacktestData.csv)
+        string[] headers = File.ReadLines("BacktestData.csv").First().Split(',');
+        var data = LoadData("BacktestData.csv", headers);
+
+        // Run backtest either in default mode or optimization mode
+        RunBacktest(useDefaults, defaults, headers, data);
+
+        Console.WriteLine("Press any key to exit...");
+        Console.ReadKey();
+    }
+
+    private static List<string[]> LoadData(string filePath, string[] headers)
+    {
+        // Load data from CSV, parse required indicators (CCI, MACD, ATR, EMA200)
+        // Return list of string arrays, each representing one line of market data
+    }
+
+    private static void RunBacktest(bool useDefaults, DefaultSettings defaults, string[] headers, List<string[]> data)
+    {
+        // Main loop to execute each strategy using randomized settings if in optimization mode
+        if (useDefaults)
+        {
+            // Run single backtest with predefined default settings
+            PerformBacktest(data, defaults);
+        }
+        else
+        {
+            // Run optimization mode, continuously generate and test random strategies
+            RunOptimization(data, headers, defaults);
+        }
+    }
+
+    private static void PerformBacktest(List<string[]> data, DefaultSettings settings)
+    {
+        // Execute all eight strategies with the provided settings on each line of data
+        // For each strategy, apply entry conditions at 9:30 AM and manage exits
+    }
+
+    private static void RunOptimization(List<string[]> data, string[] headers, DefaultSettings defaults)
+    {
+        // Optimization loop to generate random strategies until interrupted
+        var bestProfit = double.MinValue;
+        var bestSettings = new DefaultSettings();
+
+        Console.WriteLine("Optimization running. Press any key to stop...");
+
+        while (!Console.KeyAvailable)
+        {
+            // Generate randomized settings for each strategy
+            RandomizeStrategySettings(defaults);
+
+            // Run the backtest with the new randomized settings
+            var result = PerformBacktest(data, defaults);
+
+            // If profit improves, save new best settings
+            if (result > bestProfit)
+            {
+                bestProfit = result;
+                bestSettings = defaults;  // Save current best-performing settings
+            }
+        }
+
+        // On exit, output best settings and save to file
+        SaveBestStrategySettings(bestSettings);
+    }
+
+    private static void RandomizeStrategySettings(DefaultSettings settings)
+    {
+        // Randomly assign indicators, thresholds, operators, and ATR multipliers for all eight strategies
+        // e.g., settings.AboveEmaLong1.CciIndicator1 = "CCI_50"; settings.AboveEmaLong1.Cci1Operator = "<"; etc.
+    }
+
+    private static bool CheckEntryConditions(Strategy strategy, Dictionary<string, double> indicators)
+    {
+        // Check if entry conditions are met for a given strategy based on indicators
+        // Returns true if all CCI and MACD conditions are met; otherwise, returns false
+    }
+
+    private static void ManageExits(Dictionary<DateTime, (double EntryPrice, string PositionType, double TrailStop, double TargetProfit)> openTrades, DateTime dateTime, double closePrice, double atrValue)
+    {
+        // Manage exit conditions for open trades:
+        // Check if close price hits trailing stop or target profit
+        // If neither condition is met, close trades at end-of-day exit time (e.g., 3:55 PM)
+    }
+
+    private static void LogTrade(DateTime entryDate, DateTime exitDate, double entryPrice, double exitPrice, string positionType, double profit)
+    {
+        // Record each trade’s details (entry/exit prices, dates, profit) to output file
+    }
+
+    private static double CalculateResults(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades)
+    {
+        // Calculate total profits and compile summary stats for daily, weekly, and monthly periods
+    }
+
+    private static void GenerateSummary(Dictionary<DateTime, (double EntryPrice, double ExitPrice, string PositionType)> trades)
+    {
+        // Compile and output final performance summary statistics, including win rate, total trades, and profit by timeframe
+    }
+
+    private static void SaveBestStrategySettings(DefaultSettings bestSettings)
+    {
+        // Output the best-performing strategy settings to a file for easy reuse
+        // Include indicators, thresholds, ATR multipliers, and entry/exit operators in a copy-paste format
+    }
+}
