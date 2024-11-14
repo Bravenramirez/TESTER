@@ -252,9 +252,9 @@ public class SimpleDailyBacktest
         }
     }
 
-    private static List<string[]> LoadData(string filePath, string[] headers)
+    private static List<Dictionary<string, double>> LoadData(string filePath, string[] headers)
     {
-        var data = new List<string[]>();
+        var data = new List<Dictionary<string, double>>();
         try
         {
             var lines = File.ReadAllLines(filePath);
@@ -267,13 +267,13 @@ public class SimpleDailyBacktest
                 for (int i = 0; i < headers.Length; i++)
                 {
                     string header = headers[i];
-                    if (header == "CCI" || header == "MACD" || header == "ATR" || header == "EMA200")
+                    if (header != "DateTime" && header != "Open" && header != "High" && header != "Low" && header != "Close" && header != "Volume")
                     {
                         indicators[header] = double.Parse(values[i], CultureInfo.InvariantCulture);
                     }
                 }
 
-                data.Add(values);
+                data.Add(indicators);
             }
         }
         catch (Exception ex)
@@ -365,6 +365,7 @@ public class SimpleDailyBacktest
     private static void PrintIndicatorValues(DateTime dateTime, double closePrice, Dictionary<string, double> indicators, DefaultSettings settings)
     {
         Console.WriteLine($"Date: {dateTime:yyyy-MM-dd}, Time: {dateTime:HH:mm:ss}, Close Price: {closePrice:F2}");
+
         var strategies = new Dictionary<string, Strategy>
     {
         { "AboveEmaLong1", settings.AboveEmaLong1 },
@@ -385,7 +386,7 @@ public class SimpleDailyBacktest
             Console.WriteLine($"  CCI Indicator 2: {strategy.CciIndicator2}, Actual Value: {indicators[strategy.CciIndicator2]}, Criteria: {strategy.Cci2Operator} {strategy.Cci2Threshold}");
             Console.WriteLine($"  MACD Indicator 1: {strategy.MacdIndicator1}, Actual Value: {indicators[strategy.MacdIndicator1]}, Criteria: {strategy.Macd1Operator} {strategy.Macd1Threshold}");
             Console.WriteLine($"  MACD Indicator 2: {strategy.MacdIndicator2}, Actual Value: {indicators[strategy.MacdIndicator2]}, Criteria: {strategy.Macd2Operator} {strategy.Macd2Threshold}");
-            Console.WriteLine($"  ATR Indicator: {strategy.AtrIndicator}, Actual Value: {atrValue}");
+            Console.WriteLine($"  ATR Indicator: {strategy.AtrIndicator}, Actual Value: {indicators[strategy.AtrIndicator]}");
         }
     }
 
