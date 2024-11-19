@@ -1,0 +1,157 @@
+//@version=5
+strategy("Combined Triple MACD CCI Power - Long/Short with EMA Condition and Labels", overlay=true)
+
+// EMA 200 Calculation
+ema200 = ta.ema(close, 200)
+
+// Strategy 1 Configuration for Long/Short
+minHoldBars1 = input.int(7, title="Strategy 1 Min Hold Bars")
+trailStopMultiplier1 = input.float(7, title="Strategy 1 Trail Stop Multiplier")
+profitTargetMultiplier1 = input.float(1, title="Strategy 1 Profit Target Multiplier")
+volumeMultiplier1 = input.float(2, title="Strategy 1 Volume Multiplier")
+
+// Strategy 1 MACD Settings for Long/Short
+macd1_fast1 = input.int(77, title="Strategy 1 MACD1 Fast")
+macd1_slow1 = input.int(80, title="Strategy 1 MACD1 Slow")
+macd1_signal1 = input.int(67, title="Strategy 1 MACD1 Signal")
+macd2_fast1 = input.int(47, title="Strategy 1 MACD2 Fast")
+macd2_slow1 = input.int(62, title="Strategy 1 MACD2 Slow")
+macd2_signal1 = input.int(59, title="Strategy 1 MACD2 Signal")
+macd3_fast1 = input.int(18, title="Strategy 1 MACD3 Fast")
+macd3_slow1 = input.int(23, title="Strategy 1 MACD3 Slow")
+macd3_signal1 = input.int(21, title="Strategy 1 MACD3 Signal")
+
+// Strategy 1 CCI Settings for Long/Short
+cci1_length1 = input.int(43, title="Strategy 1 CCI1 Length")
+cci2_length1 = input.int(88, title="Strategy 1 CCI2 Length")
+cci3_length1 = input.int(5, title="Strategy 1 CCI3 Length")
+
+// Strategy 2 Configuration for Long/Short
+minHoldBars2 = input.int(20, title="Strategy 2 Min Hold Bars")
+trailStopMultiplier2 = input.float(24, title="Strategy 2 Trail Stop Multiplier")
+profitTargetMultiplier2 = input.float(6, title="Strategy 2 Profit Target Multiplier")
+volumeMultiplier2 = input.float(14, title="Strategy 2 Volume Multiplier")
+
+// Strategy 2 MACD Settings for Long/Short
+macd1_fast2 = input.int(42, title="Strategy 2 MACD1 Fast")
+macd1_slow2 = input.int(53, title="Strategy 2 MACD1 Slow")
+macd1_signal2 = input.int(6, title="Strategy 2 MACD1 Signal")
+macd2_fast2 = input.int(94, title="Strategy 2 MACD2 Fast")
+macd2_slow2 = input.int(95, title="Strategy 2 MACD2 Slow")
+macd2_signal2 = input.int(7, title="Strategy 2 MACD2 Signal")
+macd3_fast2 = input.int(83, title="Strategy 2 MACD3 Fast")
+macd3_slow2 = input.int(85, title="Strategy 2 MACD3 Slow")
+macd3_signal2 = input.int(60, title="Strategy 2 MACD3 Signal")
+
+// Strategy 2 CCI Settings for Long/Short
+cci1_length2 = input.int(7, title="Strategy 2 CCI1 Length")
+cci2_length2 = input.int(38, title="Strategy 2 CCI2 Length")
+cci3_length2 = input.int(32, title="Strategy 2 CCI3 Length")
+
+// ATR Settings
+atr_length1 = input.int(47, title="Strategy 1 ATR Length")
+highest_lookback1 = input.int(57, title="Strategy 1 Highest Lookback")
+atr_length2 = input.int(28, title="Strategy 2 ATR Length")
+highest_lookback2 = input.int(100, title="Strategy 2 Highest Lookback")
+
+// Indicator Calculations for Strategy 1
+[macd1_1, signal1_1, _] = ta.macd(close, macd1_fast1, macd1_slow1, macd1_signal1)
+[macd2_1, signal2_1, _] = ta.macd(close, macd2_fast1, macd2_slow1, macd2_signal1)
+[macd3_1, signal3_1, _] = ta.macd(close, macd3_fast1, macd3_slow1, macd3_signal1)
+cci1_1 = ta.cci(close, cci1_length1)
+cci2_1 = ta.cci(close, cci2_length1)
+cci3_1 = ta.cci(close, cci3_length1)
+atr1 = ta.atr(atr_length1)
+highestHigh1 = ta.highest(high, highest_lookback1)
+
+// Indicator Calculations for Strategy 2
+[macd1_2, signal1_2, _] = ta.macd(close, macd1_fast2, macd1_slow2, macd1_signal2)
+[macd2_2, signal2_2, _] = ta.macd(close, macd2_fast2, macd2_slow2, macd2_signal2)
+[macd3_2, signal3_2, _] = ta.macd(close, macd3_fast2, macd3_slow2, macd3_signal2)
+cci1_2 = ta.cci(close, cci1_length2)
+cci2_2 = ta.cci(close, cci2_length2)
+cci3_2 = ta.cci(close, cci3_length2)
+atr2 = ta.atr(atr_length2)
+highestHigh2 = ta.highest(high, highest_lookback2)
+
+// Entry Conditions for Strategy 1
+volStrongLong1 = volume > volume[1] * volumeMultiplier1
+volStrongShort1 = volume > volume[1] * volumeMultiplier1
+macdBull1 = macd1_1 > signal1_1 and macd2_1 > signal2_1 and macd3_1 > signal3_1
+macdBear1 = macd1_1 < signal1_1 and macd2_1 < signal2_1 and macd3_1 < signal3_1
+cciBull1 = cci1_1 > 0 and cci2_1 > 0 and cci3_1 > 0
+cciBear1 = cci1_1 < 0 and cci2_1 < 0 and cci3_1 < 0
+entrySignalLong1 = macdBull1 and cciBull1 and volStrongLong1 and close > ema200
+entrySignalShort1 = macdBear1 and cciBear1 and volStrongShort1 and close < ema200
+
+// Entry Conditions for Strategy 2
+volStrongLong2 = volume > volume[1] * volumeMultiplier2
+volStrongShort2 = volume > volume[1] * volumeMultiplier2
+macdBull2 = macd1_2 > signal1_2 and macd2_2 > signal2_2 and macd3_2 > signal3_2
+macdBear2 = macd1_2 < signal1_2 and macd2_2 < signal2_2 and macd3_2 < signal3_2
+cciBull2 = cci1_2 > 0 and cci2_2 > 0 and cci3_2 > 0
+cciBear2 = cci1_2 < 0 and cci2_2 < 0 and cci3_2 < 0
+entrySignalLong2 = macdBull2 and cciBull2 and volStrongLong2 and close < ema200
+entrySignalShort2 = macdBear2 and cciBear2 and volStrongShort2 and close > ema200
+
+// Combined Entry Signals
+entrySignalLong = entrySignalLong1 or entrySignalLong2
+entrySignalShort = entrySignalShort1 or entrySignalShort2
+
+// Position Tracking
+var float entryPrice = na
+var float trailPrice = na
+var int barsHeld = 0
+
+if strategy.position_size > 0
+    barsHeld := barsHeld + 1
+else
+    barsHeld := 0
+
+// Entry Logic with Time Check for Long
+if entrySignalLong1 and strategy.position_size == 0 and (hour > 9 or (hour == 9 and minute >= 40)) and (hour < 15 or (hour == 15 and minute <= 30))
+    entryPrice := close
+    trailPrice := close - (atr1 * trailStopMultiplier1)
+    strategy.entry("Buy Above EMA - Strategy 1", strategy.long)
+
+if entrySignalLong2 and strategy.position_size == 0 and (hour > 9 or (hour == 9 and minute >= 40)) and (hour < 15 or (hour == 15 and minute <= 30))
+    entryPrice := close
+    trailPrice := close - (atr2 * trailStopMultiplier2)
+    strategy.entry("Buy Below EMA - Strategy 2", strategy.long)
+
+// Entry Logic with Time Check for Short
+if entrySignalShort1 and strategy.position_size == 0 and (hour > 9 or (hour == 9 and minute >= 40)) and (hour < 15 or (hour == 15 and minute <= 30))
+    entryPrice := close
+    trailPrice := close + (atr1 * trailStopMultiplier1)
+    strategy.entry("Short Above EMA - Strategy 1", strategy.short)
+
+if entrySignalShort2 and strategy.position_size == 0 and (hour > 9 or (hour == 9 and minute >= 40)) and (hour < 15 or (hour == 15 and minute <= 30))
+    entryPrice := close
+    trailPrice := close + (atr2 * trailStopMultiplier2)
+    strategy.entry("Short Below EMA - Strategy 2", strategy.short)
+
+// Exit Logic for Long
+if strategy.position_size > 0 and barsHeld >= (entrySignalLong1 ? minHoldBars1 : minHoldBars2)
+    var float targetPriceLong = na
+    if entrySignalLong1
+        trailPrice := math.max(trailPrice, highestHigh1 - (atr1 * trailStopMultiplier1))
+        targetPriceLong := entryPrice + (atr1 * profitTargetMultiplier1)
+    else if entrySignalLong2
+        trailPrice := math.max(trailPrice, highestHigh2 - (atr2 * trailStopMultiplier2))
+        targetPriceLong := entryPrice + (atr2 * profitTargetMultiplier2)
+    strategy.exit("TP/Trail Long", "Buy", stop=trailPrice, limit=targetPriceLong)
+
+// Exit Logic for Short
+if strategy.position_size < 0 and barsHeld >= (entrySignalShort1 ? minHoldBars1 : minHoldBars2)
+    var float targetPriceShort = na
+    if entrySignalShort1
+        trailPrice := math.min(trailPrice, highestHigh1 + (atr1 * trailStopMultiplier1))
+        targetPriceShort := entryPrice - (atr1 * profitTargetMultiplier1)
+    else if entrySignalShort2
+        trailPrice := math.min(trailPrice, highestHigh2 + (atr2 * trailStopMultiplier2))
+        targetPriceShort := entryPrice - (atr2 * profitTargetMultiplier2)
+    strategy.exit("TP/Trail Short", "Short", stop=trailPrice, limit=targetPriceShort)
+
+// End-of-Day Close (15:55)
+if hour == 15 and minute == 50
+    strategy.close_all()
